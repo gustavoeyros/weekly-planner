@@ -22,6 +22,19 @@ export const GlobalLoginWrapper = styled.div`
 
 export const IconContainer = styled.div`
   display: flex;
+
+  & img {
+    transition: 1s ease-in-out;
+    transform: translateX(100%);
+  }
+  &:has(input:focus) + & img {
+    transform: translateX(-40px);
+    transition: 1s;
+  }
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 18px;
-  width: 100%;
 `;

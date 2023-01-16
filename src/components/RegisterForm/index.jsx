@@ -1,13 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import DataInput from "../DataInput";
 import Title from "../Title";
-import { RegisterWrapper } from "./styled";
+import { RegisterWrapper, TitleWrapper } from "./styled";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
   return (
     <div>
-      <Title title="Welcome," subtitle="Please, register to continue" />
-      <form>
+      <TitleWrapper>
+        <Title title="Welcome," />
+        <Title subtitle="Please, register to continue" />
+      </TitleWrapper>
+      <form onSubmit={submitHandler}>
         <RegisterWrapper>
           <DataInput
             label="first name"

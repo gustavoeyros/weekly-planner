@@ -12,3 +12,9 @@ export const RegisterWrapper = styled.div`
   margin-top: 67px;
   margin-bottom: 56px;
 `;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
