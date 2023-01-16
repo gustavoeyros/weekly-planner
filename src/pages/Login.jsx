@@ -1,9 +1,17 @@
-const Login = () => {
+import LoginForm from "../components/LoginForm";
+import compassLogo from "../assets/compassLogo.svg";
+import { FormWrapper, ImageWrapper, GlobalWrapper } from "./styled";
+const Register = () => {
   return (
-    <>
-      <h1>Login</h1>
-    </>
+    <GlobalWrapper>
+      <FormWrapper>
+        <LoginForm />
+      </FormWrapper>
+      <ImageWrapper>
+        <img src={compassLogo} />
+      </ImageWrapper>
+    </GlobalWrapper>
   );
 };
 
-export default Login;
+export default Register;

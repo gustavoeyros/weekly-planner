@@ -14,7 +14,7 @@ const DataInput = ({ label, placeholder, type }) => {
     <>
       {type !== "birth" && (
         <InputWrapper>
-          <label>{label}</label>
+          {label ? <label>{label}</label> : ""}
           <InputStyle placeholder={placeholder} type={type} />
         </InputWrapper>
       )}
@@ -24,7 +24,7 @@ const DataInput = ({ label, placeholder, type }) => {
           <label>{label}</label>
           <InputStyle
             placeholder={placeholder}
-            type={"text"}
+            type="text"
             onInput={dateHandler}
             maxLength="10"
           />
