@@ -5,15 +5,23 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const RegisterWrapper = styled.div`
+export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-top: 67px;
-  margin-bottom: 56px;
+  gap: 32px;
+  margin-top: 135px;
+  margin-bottom: 115px;
 `;
 
 export const GlobalLoginWrapper = styled.div`
   & h2 {
+    color: #e0e0e0;
+    font-weight: 400;
   }
+`;
+
+export const IconContainer = styled.div`
+  display: flex;
+  gap: 18px;
+  width: 100%;
 `;

@@ -11,5 +11,6 @@ export const ButtonStyle = styled.button`
   box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
   color: #ffffff;
 
-  width: 100%;
+  ${(props) =>
+    props.text === "Register Now" ? "width: 471px;" : "width 379px;"}
 `;
