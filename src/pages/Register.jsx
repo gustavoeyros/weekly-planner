@@ -1,11 +1,16 @@
 import RegisterForm from "../components/RegisterForm";
-
-import { FormWrapper } from "./styled";
+import compassLogo from "../assets/compassLogo.svg";
+import { FormWrapper, ImageWrapper, GlobalWrapper } from "./styled";
 const Register = () => {
   return (
-    <FormWrapper>
-      <RegisterForm />
-    </FormWrapper>
+    <GlobalWrapper>
+      <FormWrapper>
+        <RegisterForm />
+      </FormWrapper>
+      <ImageWrapper>
+        <img src={compassLogo} />
+      </ImageWrapper>
+    </GlobalWrapper>
   );
 };
 
