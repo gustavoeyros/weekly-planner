@@ -18,3 +18,11 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   gap: 6px;
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+`;

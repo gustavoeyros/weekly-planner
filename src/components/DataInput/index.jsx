@@ -1,5 +1,5 @@
-import { InputStyle, InputWrapper } from "./styled";
-const DataInput = ({ label, placeholder, type }) => {
+import { InputStyle } from "./styled";
+const DataInput = ({ placeholder, type, required }) => {
   //date mask
   const dateHandler = (e) => {
     let v = e.target.value.replace(/\D/g, "");
@@ -12,26 +12,19 @@ const DataInput = ({ label, placeholder, type }) => {
   };
   return (
     <>
-      {type !== "birth" && label && (
-        <InputWrapper>
-          {label ? <label>{label}</label> : ""}
-          <InputStyle placeholder={placeholder} type={type} />
-        </InputWrapper>
+      {type !== "birth" && (
+        <InputStyle placeholder={placeholder} type={type} required />
       )}
 
       {type === "birth" && (
-        <InputWrapper>
-          <label>{label}</label>
-          <InputStyle
-            placeholder={placeholder}
-            type="text"
-            onInput={dateHandler}
-            maxLength="10"
-          />
-        </InputWrapper>
+        <InputStyle
+          placeholder={placeholder}
+          type="text"
+          onInput={dateHandler}
+          maxLength="10"
+          required
+        />
       )}
-
-      {!label && <InputStyle placeholder={placeholder} type={type} required />}
     </>
   );
 };

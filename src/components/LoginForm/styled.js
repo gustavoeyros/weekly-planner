@@ -27,7 +27,7 @@ export const IconContainer = styled.div`
   align-items: center;
   & input:focus ~ i,
   & input:valid ~ i {
-    transform: translateX(-60px);
+    transform: translateX(-50px);
   }
 `;
 
