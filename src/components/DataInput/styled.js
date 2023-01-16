@@ -15,6 +15,13 @@ export const InputStyle = styled.input`
   &::placeholder {
     color: #e0e0e0;
   }
+
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  &[type="date"] {
+    text-transform: uppercase;
+  }
 `;
 
 export const InputWrapper = styled.div`
