@@ -12,7 +12,7 @@ const DataInput = ({ label, placeholder, type }) => {
   };
   return (
     <>
-      {type !== "birth" && (
+      {type !== "birth" && label && (
         <InputWrapper>
           {label ? <label>{label}</label> : ""}
           <InputStyle placeholder={placeholder} type={type} />
@@ -30,6 +30,8 @@ const DataInput = ({ label, placeholder, type }) => {
           />
         </InputWrapper>
       )}
+
+      {!label && <InputStyle placeholder={placeholder} type={type} required />}
     </>
   );
 };

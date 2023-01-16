@@ -1,3 +1,5 @@
+import iconPassword from "../../assets/icon-password.svg";
+import iconUser from "../../assets/icon-user.svg";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -22,14 +24,10 @@ export const GlobalLoginWrapper = styled.div`
 
 export const IconContainer = styled.div`
   display: flex;
-
-  & img {
-    transition: 1s ease-in-out;
-    transform: translateX(100%);
-  }
-  &:has(input:focus) + & img {
-    transform: translateX(-40px);
-    transition: 1s;
+  align-items: center;
+  & input:focus ~ i,
+  & input:valid ~ i {
+    transform: translateX(-60px);
   }
 `;
 
@@ -37,4 +35,18 @@ export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+`;
+
+export const Icon = styled.i`
+  width: 20px;
+  transform: translateX(100%);
+  transition: 1.5s;
+  //height
+  height: ${(props) => (props.for === "username" ? "20" : "25")}px;
+  //25.1 20
+  //image
+  ${(props) =>
+    props.for === "password"
+      ? `background: url(${iconPassword})`
+      : `background: url(${iconUser})`}
 `;

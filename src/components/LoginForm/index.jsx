@@ -5,10 +5,10 @@ import {
   LoginWrapper,
   GlobalLoginWrapper,
   IconContainer,
+  Icon,
   TitleContainer,
 } from "./styled";
-import iconPassword from "../../assets/icon-password.svg";
-import iconUser from "../../assets/icon-user.svg";
+
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -28,11 +28,11 @@ const LoginForm = () => {
           <h2>Login</h2>
           <IconContainer>
             <DataInput placeholder="user name" type="text" />
-            <img src={iconUser} />
+            <Icon for={"username"} />
           </IconContainer>
           <IconContainer>
             <DataInput placeholder="password" type="password" />
-            <img src={iconPassword} />
+            <Icon for={"password"} />
           </IconContainer>
         </LoginWrapper>
         <Button text="Log in" />
