@@ -16,7 +16,7 @@ const RegisterForm = () => {
           <DataInput label="City" placeholder="Your City" />
           <DataInput label="e-mail" placeholder="A valid e-mail here" />
           <DataInput label="password" placeholder="Your password" />
-          <DataInput label="password" placeholder="Comfirm your password" />
+          <DataInput label="password" placeholder="Confirm your password" />
         </RegisterWrapper>
         <Button text="Register Now" />
       </form>

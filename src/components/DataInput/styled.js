@@ -19,5 +19,11 @@ export const InputStyle = styled.input`
 
 export const InputWrapper = styled.div`
   display: flex;
-  gap: 17px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  & label {
+    color: #e0e0e0;
+  }
 `;
