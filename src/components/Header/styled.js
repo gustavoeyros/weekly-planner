@@ -76,9 +76,14 @@ export const HeaderLogout = styled.div`
 export const LogoutContainer = styled.div`
   display: flex;
   flex-direction: column;
+
   & img {
     width: 20px;
     height: 20px;
     margin-right: 18.76px;
+  }
+  & span {
+    position: absolute;
+    margin-top: 14px;
   }
 `;

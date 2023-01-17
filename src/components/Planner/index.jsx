@@ -7,6 +7,7 @@ import {
   TesteContainer,
   Issues,
   IssuesColor,
+  DeleteButton,
 } from "./styled";
 const Planner = () => {
   return (
@@ -28,10 +29,12 @@ const Planner = () => {
 
           <Issues>
             <IssuesColor day="monday" />
+
             <span>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem
               ipsum dolor sit amet, consectetur adipiscing elit
             </span>
+            <DeleteButton>Delete</DeleteButton>
           </Issues>
         </TaskContainer>
       </TimeContainer>

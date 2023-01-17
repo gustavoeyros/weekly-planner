@@ -90,3 +90,23 @@ export const IssuesColor = styled.div`
   height: 85px;
   border-radius: 15px 0px 0px 15px;
 `;
+
+export const DeleteButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff3d1f;
+  border: none;
+  color: white;
+  cursor: pointer;
+
+  font-size: 14px;
+  padding: 10px 12px;
+  width: 57px;
+  height: 25px;
+  margin-top: 6px;
+  margin-right: 7px;
+  margin-bottom: 54px;
+  font-weight: 800;
+  border-radius: 4px;
+`;

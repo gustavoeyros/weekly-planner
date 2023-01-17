@@ -54,7 +54,7 @@ export const ButtonActionStyle = styled.button`
   border-radius: 10px;
   width: 200px;
   height: 44px;
-
+  cursor: pointer;
   & img {
     padding: 8px;
   }
