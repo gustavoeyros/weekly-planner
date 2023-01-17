@@ -1,3 +1,4 @@
+import Planner from "../components/Planner";
 import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 const Dashboard = () => {
@@ -5,6 +6,7 @@ const Dashboard = () => {
     <>
       <Header />
       <DashboardActions />
+      <Planner />
     </>
   );
 };
