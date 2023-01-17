@@ -122,17 +122,28 @@ const RegisterForm = () => {
       : setEnteredConfirmPassword(true);
 
     //submit
-
-    setUserInput({
-      fullName: firstNameRef.current.value + lastNameRef.current.value,
-      birth: birthRef.current.value,
-      country: countryRef.current.value,
-      city: cityRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      confirmPassword: confirmPasswordRef.current.value,
-    });
-    console.log(userInput);
+    if (
+      enteredFirstName &&
+      enteredLastName &&
+      enteredBirth &&
+      enteredCountry &&
+      enteredCity &&
+      enteredEmail &&
+      enteredPassword &&
+      enteredConfirmPassword
+    ) {
+      setUserInput({
+        fullName: firstNameRef.current.value + lastNameRef.current.value,
+        birth: birthRef.current.value,
+        country: countryRef.current.value,
+        city: cityRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+        confirmPassword: confirmPasswordRef.current.value,
+      });
+      localStorage.setItem("user", userInput);
+      navigate("/login");
+    }
   };
   return (
     <div>

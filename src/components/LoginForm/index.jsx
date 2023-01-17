@@ -10,17 +10,29 @@ import {
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../store/user-context";
+import { useRef, useState } from "react";
 
 const LoginForm = () => {
-  const { userInput } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log(userInput);
+  const [userEmpty, setUserEmpty] = useState(false);
+  const [passwordEmpty, setPasswordEmpty] = useState(false);
+  const userRef = useRef();
+  const passwordRef = useRef();
+
+  const loginHandler = () => {
+    userRef.current.value.length !== 0
+      ? setUserEmpty(true)
+      : setUserEmpty(false);
+  };
+
+  const passwordHandler = () => {
+    passwordRef.current.value.length !== 0
+      ? setPasswordEmpty(true)
+      : setPasswordEmpty(false);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
   };
   return (
     <GlobalLoginWrapper>
@@ -31,13 +43,23 @@ const LoginForm = () => {
       <form onSubmit={submitHandler}>
         <LoginWrapper>
           <h2>Login</h2>
-          <IconContainer>
-            <DataInput placeholder="user name" type="text" />
-            <Icon for={"username"} />
+          <IconContainer empty={userEmpty}>
+            <DataInput
+              placeholder="user name"
+              type="text"
+              enteredRef={userRef}
+              onChange={loginHandler}
+            />
+            <Icon iconFor={"username"} />
           </IconContainer>
-          <IconContainer>
-            <DataInput placeholder="password" type="password" />
-            <Icon for={"password"} />
+          <IconContainer empty={passwordEmpty}>
+            <DataInput
+              placeholder="password"
+              type="password"
+              enteredRef={passwordRef}
+              onChange={passwordHandler}
+            />
+            <Icon iconFor={"password"} />
           </IconContainer>
         </LoginWrapper>
         <Button text="Log in" />

@@ -1,5 +1,12 @@
 import { InputStyle } from "./styled";
-const DataInput = ({ placeholder, type, enteredRef, onChange, hasError }) => {
+const DataInput = ({
+  placeholder,
+  type,
+  enteredRef,
+  onChange,
+  hasError,
+  onFocus,
+}) => {
   //date mask
   const dateHandler = (e) => {
     let v = e.target.value.replace(/\D/g, "");
@@ -19,6 +26,7 @@ const DataInput = ({ placeholder, type, enteredRef, onChange, hasError }) => {
           ref={enteredRef}
           onChange={onChange}
           hasError={hasError}
+          onFocus={onFocus}
         />
       )}
 

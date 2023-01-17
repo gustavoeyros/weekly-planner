@@ -25,10 +25,17 @@ export const GlobalLoginWrapper = styled.div`
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  & input:focus ~ i,
-  & input:valid ~ i {
+  & input:focus ~ i {
     transform: translateX(-50px);
   }
+  ${(props) =>
+    props.empty
+      ? `&  i {
+    transform: translateX(-50px);
+  }`
+      : `&  i {
+    transform: translateX(100%);
+  }`}
 `;
 
 export const TitleContainer = styled.div`
@@ -42,11 +49,11 @@ export const Icon = styled.i`
   transform: translateX(100%);
   transition: 1.5s;
   //height
-  height: ${(props) => (props.for === "username" ? "20" : "25")}px;
+  height: ${(props) => (props.iconFor === "username" ? "20" : "25")}px;
   //25.1 20
   //image
   ${(props) =>
-    props.for === "password"
+    props.iconFor === "password"
       ? `background: url(${iconPassword})`
       : `background: url(${iconUser})`}
 `;
