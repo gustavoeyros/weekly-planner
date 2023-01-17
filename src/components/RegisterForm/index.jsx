@@ -27,9 +27,12 @@ const RegisterForm = () => {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
+  const stringRegEx = new RegExp(/[^a-zA-Z]/);
+
   //validations
   const firstNameHandler = () => {
-    firstNameRef.current.value.length === 0
+    firstNameRef.current.value.length === 0 ||
+    stringRegEx.test(firstNameRef.current.value)
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
   };
@@ -74,9 +77,12 @@ const RegisterForm = () => {
     e.preventDefault();
 
     //validations
-    firstNameRef.current.value.length === 0
+    firstNameRef.current.value.length === 0 ||
+    stringRegEx.test(firstNameRef.current.value)
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
+
+    console.log(stringRegEx.test(firstNameRef.current.value));
 
     lastNameRef.current.value.length === 0
       ? setEnteredLastName(false)
