@@ -1,5 +1,5 @@
 import { InputStyle } from "./styled";
-const DataInput = ({ placeholder, type, required }) => {
+const DataInput = ({ placeholder, type, enteredRef, onChange, hasError }) => {
   //date mask
   const dateHandler = (e) => {
     let v = e.target.value.replace(/\D/g, "");
@@ -13,7 +13,13 @@ const DataInput = ({ placeholder, type, required }) => {
   return (
     <>
       {type !== "birth" && (
-        <InputStyle placeholder={placeholder} type={type} required />
+        <InputStyle
+          placeholder={placeholder}
+          type={type}
+          ref={enteredRef}
+          onChange={onChange}
+          hasError={hasError}
+        />
       )}
 
       {type === "birth" && (
@@ -21,8 +27,10 @@ const DataInput = ({ placeholder, type, required }) => {
           placeholder={placeholder}
           type="text"
           onInput={dateHandler}
+          hasError={hasError}
           maxLength="10"
-          required
+          onChange={onChange}
+          ref={enteredRef}
         />
       )}
     </>
