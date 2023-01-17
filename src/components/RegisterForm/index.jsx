@@ -39,7 +39,7 @@ const RegisterForm = () => {
       : setEnteredLastName(true);
   };
   const birthHandler = () => {
-    birthRef.current.value.length === 0
+    birthRef.current.value.length < 10
       ? setEnteredBirth(false)
       : setEnteredBirth(true);
   };
@@ -54,7 +54,8 @@ const RegisterForm = () => {
       : setEnteredCity(true);
   };
   const emailHandler = () => {
-    emailRef.current.value.length === 0
+    emailRef.current.value.length === 0 ||
+    !emailRef.current.value.split("").includes("@")
       ? setEnteredEmail(false)
       : setEnteredEmail(true);
   };
@@ -72,6 +73,7 @@ const RegisterForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
+    //validations
     firstNameRef.current.value.length === 0
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
@@ -80,7 +82,7 @@ const RegisterForm = () => {
       ? setEnteredLastName(false)
       : setEnteredLastName(true);
 
-    birthRef.current.value.length === 0
+    birthRef.current.value.length < 10
       ? setEnteredBirth(false)
       : setEnteredBirth(true);
 
@@ -92,15 +94,18 @@ const RegisterForm = () => {
       ? setEnteredCity(false)
       : setEnteredCity(true);
 
-    emailRef.current.value.length === 0
+    emailRef.current.value.length === 0 ||
+    !emailRef.current.value.split("").includes("@")
       ? setEnteredEmail(false)
       : setEnteredEmail(true);
 
-    passwordRef.current.value.length === 0
+    passwordRef.current.value.length === 0 ||
+    passwordRef.current.value !== confirmPasswordRef.current.value
       ? setEnteredPassword(false)
       : setEnteredPassword(true);
 
-    confirmPasswordRef.current.value.length === 0
+    confirmPasswordRef.current.value.length === 0 ||
+    confirmPasswordRef.current.value !== passwordRef.current.value
       ? setEnteredConfirmPassword(false)
       : setEnteredConfirmPassword(true);
   };
