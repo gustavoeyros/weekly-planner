@@ -14,8 +14,8 @@ import { useRef, useState } from "react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [userEmpty, setUserEmpty] = useState(false);
-  const [passwordEmpty, setPasswordEmpty] = useState(false);
+  const [userEmpty, setUserEmpty] = useState(null);
+  const [passwordEmpty, setPasswordEmpty] = useState(null);
   const userRef = useRef();
   const passwordRef = useRef();
 
@@ -49,6 +49,7 @@ const LoginForm = () => {
               type="text"
               enteredRef={userRef}
               onChange={loginHandler}
+              hasError={userEmpty}
             />
             <Icon iconFor={"username"} />
           </IconContainer>
@@ -58,6 +59,7 @@ const LoginForm = () => {
               type="password"
               enteredRef={passwordRef}
               onChange={passwordHandler}
+              hasError={passwordEmpty}
             />
             <Icon iconFor={"password"} />
           </IconContainer>
