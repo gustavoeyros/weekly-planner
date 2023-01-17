@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const HeaderStyle = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 130px;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+  padding-right: 23.3px;
 `;
 
 export const HeaderTitle = styled.div`
@@ -54,5 +55,30 @@ export const HeaderTemperature = styled.div`
   & span:nth-child(2) {
     font-weight: 700;
     font-size: 48px;
+  }
+`;
+
+export const TemperatureContainer = styled.div`
+  display: flex;
+  gap: 15.22px;
+`;
+
+export const HeaderLogout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+
+  & div {
+    align-items: flex-end;
+  }
+`;
+
+export const LogoutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & img {
+    width: 20px;
+    height: 20px;
+    margin-right: 18.76px;
   }
 `;

@@ -1,8 +1,14 @@
+import logoutLogo from "../../assets/logoutLogo.svg";
+import arrowLogo from "../../assets/arrowLogout.svg";
+import iconCloud from "../../assets/icon-cloud.svg";
 import {
   HeaderStyle,
   HeaderTitle,
   HeaderDate,
   HeaderTemperature,
+  TemperatureContainer,
+  HeaderLogout,
+  LogoutContainer,
 } from "./styled";
 const Header = () => {
   return (
@@ -19,8 +25,19 @@ const Header = () => {
 
       <HeaderTemperature>
         <span>Asunción - Paraguay</span>
-        <span>22°</span>
+        <TemperatureContainer>
+          <img src={iconCloud} />
+          <span>22°</span>
+        </TemperatureContainer>
       </HeaderTemperature>
+
+      <HeaderLogout>
+        <img src={logoutLogo} />
+        <LogoutContainer>
+          <img src={arrowLogo} />
+          <span>Logout</span>
+        </LogoutContainer>
+      </HeaderLogout>
     </HeaderStyle>
   );
 };
