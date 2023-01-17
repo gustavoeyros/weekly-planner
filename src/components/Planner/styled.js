@@ -1,6 +1,7 @@
+import plannerLogo from "../../assets/plannerLogo.png";
 import styled from "styled-components";
 
-export const TesteContainer = styled.div`
+export const Wrapper = styled.div`
   //colors
   --monday-color: #ff0024;
   --tuesday-color: #ff8000;
@@ -9,6 +10,7 @@ export const TesteContainer = styled.div`
   --friday-color: rgba(255, 128, 0, 0.7);
   --saturday-color: rgba(255, 206, 0, 0.7);
   --sunday-color: rgba(255, 0, 36, 0.5);
+  height: 100vh;
 `;
 
 export const DaysWeek = styled.div`
@@ -16,8 +18,6 @@ export const DaysWeek = styled.div`
   justify-content: center;
   gap: 3px;
 `;
-
-export const StyledColors = styled.div``;
 
 export const DayOfWeek = styled.div`
   display: flex;
@@ -79,8 +79,6 @@ export const Issues = styled.div`
     padding-bottom: 13px;
     padding-left: 13px;
   }
-  & div {
-  }
 `;
 
 export const IssuesColor = styled.div`
@@ -109,4 +107,12 @@ export const DeleteButton = styled.button`
   margin-bottom: 54px;
   font-weight: 800;
   border-radius: 4px;
+`;
+
+export const Background = styled.div`
+  background-image: url(${plannerLogo});
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  height: 100%;
+  width: 100%;
 `;
