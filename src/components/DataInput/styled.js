@@ -5,7 +5,9 @@ export const InputStyle = styled.input`
   height: 60px;
   border-radius: 50px;
   ${({ hasError }) =>
-    hasError === false ? "border 1px solid red;" : "border: 1px solid #ffffff;"}
+    hasError === false
+      ? "border 1px solid #E9B425;"
+      : "border: 1px solid #ffffff;"}
   outline: none;
   background: transparent;
   font-size: 12px;

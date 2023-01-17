@@ -10,9 +10,14 @@ import {
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../store/user-context";
 
 const LoginForm = () => {
+  const { userInput } = useContext(UserContext);
   const navigate = useNavigate();
+  console.log(userInput);
+
   const submitHandler = (e) => {
     e.preventDefault();
     navigate("/dashboard");

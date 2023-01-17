@@ -4,10 +4,12 @@ import DataInput from "../DataInput";
 import Title from "../Title";
 import { RegisterWrapper, TitleWrapper, InputWrapper } from "./styled";
 import TextLabel from "../TextLabel";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { UserContext } from "../../store/user-context";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const { userInput, setUserInput } = useContext(UserContext);
 
   const [enteredFirstName, setEnteredFirstName] = useState(null);
   const [enteredLastName, setEnteredLastName] = useState(null);
@@ -37,7 +39,8 @@ const RegisterForm = () => {
       : setEnteredFirstName(true);
   };
   const lastNameHandler = () => {
-    lastNameRef.current.value.length === 0
+    lastNameRef.current.value.length === 0 ||
+    stringRegEx.test(lastNameRef.current.value)
       ? setEnteredLastName(false)
       : setEnteredLastName(true);
   };
@@ -47,12 +50,14 @@ const RegisterForm = () => {
       : setEnteredBirth(true);
   };
   const countryHandler = () => {
-    countryRef.current.value.length === 0
+    countryRef.current.value.length === 0 ||
+    stringRegEx.test(countryRef.current.value)
       ? setEnteredCountry(false)
       : setEnteredCountry(true);
   };
   const cityHandler = () => {
-    cityRef.current.value.length === 0
+    cityRef.current.value.length === 0 ||
+    stringRegEx.test(cityRef.current.value)
       ? setEnteredCity(false)
       : setEnteredCity(true);
   };
@@ -82,9 +87,8 @@ const RegisterForm = () => {
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
 
-    console.log(stringRegEx.test(firstNameRef.current.value));
-
-    lastNameRef.current.value.length === 0
+    lastNameRef.current.value.length === 0 ||
+    stringRegEx.test(lastNameRef.current.value)
       ? setEnteredLastName(false)
       : setEnteredLastName(true);
 
@@ -92,11 +96,13 @@ const RegisterForm = () => {
       ? setEnteredBirth(false)
       : setEnteredBirth(true);
 
-    countryRef.current.value.length === 0
+    countryRef.current.value.length === 0 ||
+    stringRegEx.test(countryRef.current.value)
       ? setEnteredCountry(false)
       : setEnteredCountry(true);
 
-    cityRef.current.value.length === 0
+    cityRef.current.value.length === 0 ||
+    stringRegEx.test(cityRef.current.value)
       ? setEnteredCity(false)
       : setEnteredCity(true);
 
@@ -114,6 +120,19 @@ const RegisterForm = () => {
     confirmPasswordRef.current.value !== passwordRef.current.value
       ? setEnteredConfirmPassword(false)
       : setEnteredConfirmPassword(true);
+
+    //submit
+
+    setUserInput({
+      fullName: firstNameRef.current.value + lastNameRef.current.value,
+      birth: birthRef.current.value,
+      country: countryRef.current.value,
+      city: cityRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value,
+    });
+    console.log(userInput);
   };
   return (
     <div>
