@@ -9,7 +9,7 @@ import { UserContext } from "../../store/user-context";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const { userInput, setUserInput } = useContext(UserContext);
+  const { setUserInput } = useContext(UserContext);
 
   const [enteredFirstName, setEnteredFirstName] = useState(null);
   const [enteredLastName, setEnteredLastName] = useState(null);

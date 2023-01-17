@@ -77,13 +77,22 @@ export const LogoutContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  height: 40px;
+  justify-content: center;
+
   & img {
     width: 20px;
     height: 20px;
     margin-right: 18.76px;
+    margin-bottom: 14px;
   }
-  & span {
+  & button {
+    border: none;
+    background: none;
+    cursor: pointer;
     position: absolute;
     margin-top: 14px;
+    font-weight: 500;
+    font-size: 17px;
   }
 `;

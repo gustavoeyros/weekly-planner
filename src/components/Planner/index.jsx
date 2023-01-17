@@ -10,7 +10,25 @@ import {
   DeleteButton,
   Background,
 } from "./styled";
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Planner = () => {
+  const navigate = useNavigate();
+
+  const isLogged = localStorage.getItem("logged");
+
+  const checkLogged = () => {
+    if (!isLogged) {
+      navigate("/register");
+    }
+  };
+
+  useEffect(() => {
+    checkLogged();
+  }, [isLogged]);
+
   return (
     <Background>
       <Wrapper>

@@ -11,6 +11,9 @@ import {
   LogoutContainer,
 } from "./styled";
 const Header = () => {
+  const logoutHandler = () => {
+    localStorage.setItem("logged", false);
+  };
   return (
     <HeaderStyle>
       <HeaderTitle>
@@ -35,7 +38,7 @@ const Header = () => {
         <img src={logoutLogo} />
         <LogoutContainer>
           <img src={arrowLogo} />
-          <span>Logout</span>
+          <button onClick={logoutHandler}>Logout</button>
         </LogoutContainer>
       </HeaderLogout>
     </HeaderStyle>

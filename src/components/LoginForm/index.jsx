@@ -12,8 +12,12 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../store/user-context";
 
 const LoginForm = () => {
+  const { setIsLogged } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [userEmpty, setUserEmpty] = useState(null);
   const [passwordEmpty, setPasswordEmpty] = useState(null);
@@ -46,7 +50,9 @@ const LoginForm = () => {
       (userRef.current.value === emailStorage &&
         passwordRef.current.value === passwordStorage)
     ) {
+      setIsLogged(true);
       navigate("/dashboard");
+      localStorage.setItem("logged", true);
     } else {
       setPasswordEmpty(false);
       setUserEmpty(false);

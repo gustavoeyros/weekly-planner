@@ -14,8 +14,12 @@ export const UserProvider = ({ children }) => {
     confirmPassword: "",
   });
 
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
-    <UserContext.Provider value={{ userInput, setUserInput }}>
+    <UserContext.Provider
+      value={{ userInput, setUserInput, isLogged, setIsLogged }}
+    >
       {children}
     </UserContext.Provider>
   );
