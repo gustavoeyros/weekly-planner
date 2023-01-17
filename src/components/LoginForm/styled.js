@@ -12,7 +12,13 @@ export const LoginWrapper = styled.div`
   flex-direction: column;
   gap: 32px;
   margin-top: 135px;
-  margin-bottom: 115px;
+  margin-bottom: ${({ hasError }) => (hasError ? "47px" : "115px")};
+
+  & div:nth-child(4) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const GlobalLoginWrapper = styled.div`
@@ -56,4 +62,16 @@ export const Icon = styled.i`
     props.iconFor === "password"
       ? `background: url(${iconPassword})`
       : `background: url(${iconUser})`}
+`;
+export const Error = styled.div`
+  text-align: center;
+
+  color: #e9b425;
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+
+  & span {
+    width: 283px;
+  }
 `;

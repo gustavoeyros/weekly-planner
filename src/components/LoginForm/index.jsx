@@ -7,6 +7,7 @@ import {
   IconContainer,
   Icon,
   TitleContainer,
+  Error,
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,12 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [userEmpty, setUserEmpty] = useState(null);
   const [passwordEmpty, setPasswordEmpty] = useState(null);
+  const [hasError, setHasError] = useState(null);
+  const userStorage = JSON.parse(localStorage.getItem("user"));
+  const emailStorage = userStorage.email;
+  const nameStorage = userStorage.fullName;
+  const passwordStorage = userStorage.password;
+
   const userRef = useRef();
   const passwordRef = useRef();
 
@@ -33,6 +40,18 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (
+      userRef.current.value === nameStorage ||
+      (userRef.current.value === emailStorage &&
+        passwordRef.current.value === passwordStorage)
+    ) {
+      navigate("/dashboard");
+    } else {
+      setPasswordEmpty(false);
+      setUserEmpty(false);
+      setHasError(true);
+    }
   };
   return (
     <GlobalLoginWrapper>
@@ -41,7 +60,7 @@ const LoginForm = () => {
         <Title subtitle="To continue browsing safely, log in to the network." />
       </TitleContainer>
       <form onSubmit={submitHandler}>
-        <LoginWrapper>
+        <LoginWrapper hasError={hasError}>
           <h2>Login</h2>
           <IconContainer empty={userEmpty}>
             <DataInput
@@ -63,6 +82,11 @@ const LoginForm = () => {
             />
             <Icon iconFor={"password"} />
           </IconContainer>
+          {hasError === true && (
+            <Error>
+              <span>Wow, invalid username or password. Please, try again!</span>
+            </Error>
+          )}
         </LoginWrapper>
         <Button text="Log in" />
       </form>
