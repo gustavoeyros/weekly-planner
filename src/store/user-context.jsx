@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = React.createContext({});
 
@@ -14,11 +15,37 @@ export const UserProvider = ({ children }) => {
     confirmPassword: "",
   });
 
-  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
+
+  //check loggedIn
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("logged"));
+
+  const logoutHandler = () => {
+    localStorage.removeItem("logged");
+    setIsLogged(false);
+  };
+
+  const loginHandler = () => {
+    localStorage.setItem("logged", true);
+    setIsLogged(true);
+  };
+
+  useEffect(() => {
+    if (isLogged) {
+      setIsLogged(true);
+    }
+  }, []);
 
   return (
     <UserContext.Provider
-      value={{ userInput, setUserInput, isLogged, setIsLogged }}
+      value={{
+        userInput,
+        setUserInput,
+        isLogged,
+        setIsLogged,
+        onLogout: logoutHandler,
+        onLogin: loginHandler,
+      }}
     >
       {children}
     </UserContext.Provider>

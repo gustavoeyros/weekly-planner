@@ -16,16 +16,16 @@ import { useContext } from "react";
 import { UserContext } from "../../store/user-context";
 
 const LoginForm = () => {
-  const { setIsLogged } = useContext(UserContext);
+  const userCtx = useContext(UserContext);
 
   const navigate = useNavigate();
   const [userEmpty, setUserEmpty] = useState(null);
   const [passwordEmpty, setPasswordEmpty] = useState(null);
   const [hasError, setHasError] = useState(null);
   const userStorage = JSON.parse(localStorage.getItem("user"));
-  const emailStorage = userStorage.email;
-  const nameStorage = userStorage.fullName;
-  const passwordStorage = userStorage.password;
+  const emailStorage = userStorage?.email;
+  const nameStorage = userStorage?.fullName;
+  const passwordStorage = userStorage?.password;
 
   const userRef = useRef();
   const passwordRef = useRef();
@@ -50,9 +50,8 @@ const LoginForm = () => {
       (userRef.current.value === emailStorage &&
         passwordRef.current.value === passwordStorage)
     ) {
-      setIsLogged(true);
       navigate("/dashboard");
-      localStorage.setItem("logged", true);
+      userCtx.onLogin();
     } else {
       setPasswordEmpty(false);
       setUserEmpty(false);

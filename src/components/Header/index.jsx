@@ -10,9 +10,13 @@ import {
   HeaderLogout,
   LogoutContainer,
 } from "./styled";
+import { useContext } from "react";
+import { UserContext } from "../../store/user-context";
+
 const Header = () => {
+  const userCtx = useContext(UserContext);
   const logoutHandler = () => {
-    localStorage.setItem("logged", false);
+    userCtx.onLogout();
   };
   return (
     <HeaderStyle>
