@@ -46,7 +46,8 @@ const LoginForm = () => {
     e.preventDefault();
 
     if (
-      userRef.current.value === nameStorage ||
+      (userRef.current.value === nameStorage &&
+        passwordRef.current.value === passwordStorage) ||
       (userRef.current.value === emailStorage &&
         passwordRef.current.value === passwordStorage)
     ) {
