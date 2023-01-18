@@ -133,17 +133,8 @@ const RegisterForm = () => {
       enteredPassword &&
       enteredConfirmPassword
     ) {
-      console.log(
-        "password: " + enteredPassword + "->" + passwordRef.current.value
-      );
-      console.log(
-        "confirm: " +
-          enteredConfirmPassword +
-          "->" +
-          confirmPasswordRef.current.value
-      );
-      /*  const inputData = {
-        fullName: firstNameRef.current.value + lastNameRef.current.value,
+      const inputData = {
+        fullName: firstNameRef.current.value + " " + lastNameRef.current.value,
         birth: birthRef.current.value,
         country: countryRef.current.value,
         city: cityRef.current.value,
@@ -155,7 +146,7 @@ const RegisterForm = () => {
       setUserInput(inputData);
       localStorage.setItem("user", JSON.stringify(inputData));
 
-      navigate("/login"); */
+      navigate("/login");
     }
   };
   return (

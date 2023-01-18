@@ -6,6 +6,7 @@ const DataInput = ({
   onChange,
   hasError,
   onFocus,
+  submitCheck,
 }) => {
   //date mask
   const dateHandler = (e) => {
@@ -27,6 +28,7 @@ const DataInput = ({
           onChange={onChange}
           hasError={hasError}
           onFocus={onFocus}
+          submitCheck={submitCheck}
         />
       )}
 

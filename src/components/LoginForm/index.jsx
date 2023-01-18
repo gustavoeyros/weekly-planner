@@ -53,8 +53,6 @@ const LoginForm = () => {
       navigate("/dashboard");
       userCtx.onLogin();
     } else {
-      setPasswordEmpty(false);
-      setUserEmpty(false);
       setHasError(true);
     }
   };
@@ -74,6 +72,7 @@ const LoginForm = () => {
               enteredRef={userRef}
               onChange={loginHandler}
               hasError={userEmpty}
+              submitCheck={hasError}
             />
             <Icon iconFor={"username"} />
           </IconContainer>
@@ -84,6 +83,7 @@ const LoginForm = () => {
               enteredRef={passwordRef}
               onChange={passwordHandler}
               hasError={passwordEmpty}
+              submitCheck={hasError}
             />
             <Icon iconFor={"password"} />
           </IconContainer>
