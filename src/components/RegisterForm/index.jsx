@@ -4,7 +4,7 @@ import DataInput from "../DataInput";
 import Title from "../Title";
 import { RegisterWrapper, TitleWrapper, InputWrapper } from "./styled";
 import TextLabel from "../TextLabel";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { UserContext } from "../../store/user-context";
 
 const RegisterForm = () => {
@@ -73,7 +73,8 @@ const RegisterForm = () => {
       : setEnteredPassword(true);
   };
   const confirmPasswordHandler = () => {
-    confirmPasswordRef.current.value.length === 0
+    confirmPasswordRef.current.value.length === 0 ||
+    confirmPasswordRef.current.value !== passwordRef.current.value
       ? setEnteredConfirmPassword(false)
       : setEnteredConfirmPassword(true);
   };
@@ -111,8 +112,7 @@ const RegisterForm = () => {
       ? setEnteredEmail(false)
       : setEnteredEmail(true);
 
-    passwordRef.current.value.length === 0 ||
-    passwordRef.current.value !== confirmPasswordRef.current.value
+    passwordRef.current.value.length === 0
       ? setEnteredPassword(false)
       : setEnteredPassword(true);
 
@@ -122,6 +122,7 @@ const RegisterForm = () => {
       : setEnteredConfirmPassword(true);
 
     //submit
+
     if (
       enteredFirstName &&
       enteredLastName &&
@@ -132,7 +133,16 @@ const RegisterForm = () => {
       enteredPassword &&
       enteredConfirmPassword
     ) {
-      const inputData = {
+      console.log(
+        "password: " + enteredPassword + "->" + passwordRef.current.value
+      );
+      console.log(
+        "confirm: " +
+          enteredConfirmPassword +
+          "->" +
+          confirmPasswordRef.current.value
+      );
+      /*  const inputData = {
         fullName: firstNameRef.current.value + lastNameRef.current.value,
         birth: birthRef.current.value,
         country: countryRef.current.value,
@@ -145,7 +155,7 @@ const RegisterForm = () => {
       setUserInput(inputData);
       localStorage.setItem("user", JSON.stringify(inputData));
 
-      navigate("/login");
+      navigate("/login"); */
     }
   };
   return (

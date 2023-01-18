@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const UserContext = React.createContext({});
 
@@ -14,8 +13,6 @@ export const UserProvider = ({ children }) => {
     password: "",
     confirmPassword: "",
   });
-
-  const navigate = useNavigate();
 
   //check loggedIn
   const [isLogged, setIsLogged] = useState(localStorage.getItem("logged"));

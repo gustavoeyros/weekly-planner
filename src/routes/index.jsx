@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "../store/user-context";
 const RoutesManager = () => {
   const { isLogged } = useContext(UserContext);
-  console.log(isLogged);
+
   return (
     <Routes>
       <Route path="/register" element={<Register />} />
