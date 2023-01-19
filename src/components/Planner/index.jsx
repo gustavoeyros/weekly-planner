@@ -8,6 +8,7 @@ import {
   Issues,
   IssuesColor,
   DeleteButton,
+  DeleteContainer,
 } from "./styled";
 
 const Planner = ({ cardTask }) => {
@@ -33,12 +34,10 @@ const Planner = ({ cardTask }) => {
 
                 <Issues>
                   <IssuesColor day={item.day} />
-
-                  <span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </span>
-                  <DeleteButton>Delete</DeleteButton>
+                  <span>{item.name}</span>
+                  <DeleteContainer>
+                    <DeleteButton>Delete</DeleteButton>
+                  </DeleteContainer>
                 </Issues>
               </TaskContainer>
             </>

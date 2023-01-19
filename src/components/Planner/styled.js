@@ -59,7 +59,6 @@ export const TaskContainer = styled.div`
 
 export const Issues = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   background: linear-gradient(
     112.83deg,
@@ -81,6 +80,7 @@ export const Issues = styled.div`
 
 export const IssuesColor = styled.div`
   display: flex;
+
   background: var(--${({ day }) => day}-color);
   width: 20px;
   height: 85px;
@@ -95,7 +95,6 @@ export const DeleteButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
-
   font-size: 14px;
   padding: 10px 12px;
   width: 57px;
@@ -105,4 +104,11 @@ export const DeleteButton = styled.button`
   margin-bottom: 54px;
   font-weight: 800;
   border-radius: 4px;
+`;
+
+export const DeleteContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100%;
 `;
