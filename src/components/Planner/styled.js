@@ -1,4 +1,3 @@
-import plannerLogo from "../../assets/plannerLogo.png";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -10,7 +9,6 @@ export const Wrapper = styled.div`
   --friday-color: rgba(255, 128, 0, 0.7);
   --saturday-color: rgba(255, 206, 0, 0.7);
   --sunday-color: rgba(255, 0, 36, 0.5);
-  height: 100vh;
 `;
 
 export const DaysWeek = styled.div`
@@ -83,7 +81,7 @@ export const Issues = styled.div`
 
 export const IssuesColor = styled.div`
   display: flex;
-  background: red;
+  background: var(--${({ day }) => day}-color);
   width: 20px;
   height: 85px;
   border-radius: 15px 0px 0px 15px;
@@ -107,12 +105,4 @@ export const DeleteButton = styled.button`
   margin-bottom: 54px;
   font-weight: 800;
   border-radius: 4px;
-`;
-
-export const Background = styled.div`
-  background-image: url(${plannerLogo});
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  height: 100%;
-  width: 100%;
 `;

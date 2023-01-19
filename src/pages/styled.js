@@ -1,3 +1,4 @@
+import plannerLogo from "../assets/plannerLogo.png";
 import background from "../assets/background.png";
 import styled from "styled-components";
 
@@ -22,4 +23,12 @@ export const ImageWrapper = styled.div`
 
 export const GlobalWrapper = styled.div`
   display: flex;
+`;
+
+export const Background = styled.div`
+  background-image: url(${plannerLogo});
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  height: 100vh;
+  background-color: #f3f3f3;
 `;

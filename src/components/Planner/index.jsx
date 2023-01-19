@@ -8,41 +8,44 @@ import {
   Issues,
   IssuesColor,
   DeleteButton,
-  Background,
 } from "./styled";
 
-const Planner = () => {
+const Planner = ({ cardTask }) => {
   return (
-    <Background>
-      <Wrapper>
-        <DaysWeek>
-          <DayOfWeek day="monday">Monday</DayOfWeek>
-          <DayOfWeek day="tuesday">Tuesday</DayOfWeek>
-          <DayOfWeek day="wednesday">Wednesday</DayOfWeek>
-          <DayOfWeek day="thursday">Thursday</DayOfWeek>
-          <DayOfWeek day="friday">Friday</DayOfWeek>
-          <DayOfWeek day="saturday">Saturday</DayOfWeek>
-          <DayOfWeek day="sunday">Sunday</DayOfWeek>
-        </DaysWeek>
+    <Wrapper>
+      <DaysWeek>
+        <DayOfWeek day="monday">Monday</DayOfWeek>
+        <DayOfWeek day="tuesday">Tuesday</DayOfWeek>
+        <DayOfWeek day="wednesday">Wednesday</DayOfWeek>
+        <DayOfWeek day="thursday">Thursday</DayOfWeek>
+        <DayOfWeek day="friday">Friday</DayOfWeek>
+        <DayOfWeek day="saturday">Saturday</DayOfWeek>
+        <DayOfWeek day="sunday">Sunday</DayOfWeek>
+      </DaysWeek>
 
-        <TimeContainer>
-          <Time>Time</Time>
-          <TaskContainer>
-            <Time day="monday">10h30m</Time>
+      <TimeContainer>
+        <Time>Time</Time>
+        {cardTask.map((item) => {
+          return (
+            <>
+              <TaskContainer>
+                <Time day={item.day}>{item.time}</Time>
 
-            <Issues>
-              <IssuesColor day="monday" />
+                <Issues>
+                  <IssuesColor day={item.day} />
 
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit
-              </span>
-              <DeleteButton>Delete</DeleteButton>
-            </Issues>
-          </TaskContainer>
-        </TimeContainer>
-      </Wrapper>
-    </Background>
+                  <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  </span>
+                  <DeleteButton>Delete</DeleteButton>
+                </Issues>
+              </TaskContainer>
+            </>
+          );
+        })}
+      </TimeContainer>
+    </Wrapper>
   );
 };
 

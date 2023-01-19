@@ -9,12 +9,27 @@ import {
   ButtonActionStyle,
   ActionsContainer,
 } from "./styled";
-const DashboardActions = () => {
+import { useRef } from "react";
+const DashboardActions = ({ addHandler }) => {
+  const taskRef = useRef();
+  const dayRef = useRef();
+  const timeRef = useRef();
+
+  const submitHandler = () => {
+    const taskInfo = {
+      name: taskRef.current.value,
+      day: dayRef.current.value,
+      time: timeRef.current.value,
+    };
+
+    addHandler(taskInfo);
+  };
+
   return (
     <ActionsContainer>
       <InputActions>
-        <InputTask type="text" placeholder="Task or issue" />
-        <DaySelect>
+        <InputTask type="text" placeholder="Task or issue" ref={taskRef} />
+        <DaySelect ref={dayRef}>
           <option value="monday" id="monday">
             Monday
           </option>
@@ -44,11 +59,11 @@ const DashboardActions = () => {
           </option>
         </DaySelect>
 
-        <TimeInput type="time" />
+        <TimeInput type="time" ref={timeRef} />
       </InputActions>
 
       <ButtonsAction>
-        <ButtonActionStyle btnType="add">
+        <ButtonActionStyle btnType="add" onClick={submitHandler}>
           <img src={addIcon} />
           Add to calendar
         </ButtonActionStyle>
