@@ -56,6 +56,11 @@ export const HeaderTemperature = styled.div`
     font-weight: 700;
     font-size: 48px;
   }
+  & img {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+  }
 `;
 
 export const TemperatureContainer = styled.div`

@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/user-context";
 
 const Header = () => {
+  //realtime clock
   let hours = new Date().toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -36,6 +37,33 @@ const Header = () => {
   const logoutHandler = () => {
     userCtx.onLogout();
   };
+
+  //weather api
+  const [temperature, setTemperature] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const userStorage = JSON.parse(localStorage.getItem("user"));
+  const countryStorage = userStorage?.country;
+  const cityStorage = userStorage?.city;
+
+  const FindTemperatureHandler = () => {
+    fetch(
+      `http://api.weatherapi.com/v1/current.json?key=ce9027b7cc944be2a99163432231901&q=${cityStorage}&lang=pt`
+    )
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        setTemperature(data);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    FindTemperatureHandler();
+  }, []);
+
   return (
     <HeaderStyle>
       <HeaderTitle>
@@ -49,11 +77,17 @@ const Header = () => {
       </HeaderDate>
 
       <HeaderTemperature>
-        <span>Asunción - Paraguay</span>
-        <TemperatureContainer>
-          <img src={iconCloud} />
-          <span>22°</span>
-        </TemperatureContainer>
+        <span>
+          {cityStorage} - {countryStorage}
+        </span>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <TemperatureContainer>
+            <img src={temperature.current.condition.icon} />
+            <span>{temperature.current.temp_c}°</span>
+          </TemperatureContainer>
+        )}
       </HeaderTemperature>
 
       <HeaderLogout>
