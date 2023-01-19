@@ -10,10 +10,28 @@ import {
   HeaderLogout,
   LogoutContainer,
 } from "./styled";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/user-context";
 
 const Header = () => {
+  let hours = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const [time, setTime] = useState(hours);
+
+  useEffect(() => {
+    setInterval(() => {
+      let hours = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      setTime(hours);
+    }, 1000);
+  }, []);
+
   const userCtx = useContext(UserContext);
   const logoutHandler = () => {
     userCtx.onLogout();
@@ -26,7 +44,7 @@ const Header = () => {
       </HeaderTitle>
 
       <HeaderDate>
-        <span>10:58</span>
+        <span>{time}</span>
         <span>November 22th, 2022</span>
       </HeaderDate>
 

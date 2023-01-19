@@ -35,6 +35,10 @@ export const TimeInput = styled.input`
   border-radius: 10px;
   padding: 13px 8px 12px;
   outline: none;
+
+  &::-webkit-calendar-picker-indicator {
+    background: none;
+  }
 `;
 
 export const ButtonsAction = styled.div`

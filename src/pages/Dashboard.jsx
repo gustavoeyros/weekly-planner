@@ -4,10 +4,8 @@ import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
 
-const lazy = [];
-
 const Dashboard = () => {
-  const [task, setTask] = useState(lazy);
+  const [task, setTask] = useState([]);
 
   const addCard = (item) => {
     setTask((prevState) => {

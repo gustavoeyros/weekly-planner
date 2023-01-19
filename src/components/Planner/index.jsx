@@ -31,7 +31,6 @@ const Planner = ({ cardTask }) => {
             <>
               <TaskContainer key={item.id}>
                 <Time day={item.day}>{item.time}</Time>
-
                 <Issues>
                   <IssuesColor day={item.day} />
                   <span>{item.name}</span>
