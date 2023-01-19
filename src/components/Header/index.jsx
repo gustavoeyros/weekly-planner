@@ -84,7 +84,7 @@ const Header = () => {
           <p>Loading...</p>
         ) : (
           <TemperatureContainer>
-            <img src={temperature.current.condition.icon} />
+            <img src={iconCloud} />
             <span>{temperature.current.temp_c}°</span>
           </TemperatureContainer>
         )}
