@@ -15,6 +15,7 @@ const RoutesManager = () => {
         path="/dashboard"
         element={!isLogged ? <Navigate to="/register" /> : <Dashboard />}
       />
+      <Route path="/" element={<Navigate to="/register" />} exact />
     </Routes>
   );
 };

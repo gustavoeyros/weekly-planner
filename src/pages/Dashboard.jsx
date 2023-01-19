@@ -17,10 +17,14 @@ const Dashboard = () => {
     });
   };
 
+  const deleteAllCards = () => {
+    setTask([]);
+  };
+
   return (
     <Background>
       <Header />
-      <DashboardActions addHandler={addCard} />
+      <DashboardActions addHandler={addCard} deleteAllCards={deleteAllCards} />
       <Planner cardTask={task} />
     </Background>
   );

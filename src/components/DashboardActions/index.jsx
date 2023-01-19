@@ -10,7 +10,7 @@ import {
   ActionsContainer,
 } from "./styled";
 import { useRef } from "react";
-const DashboardActions = ({ addHandler }) => {
+const DashboardActions = ({ addHandler, deleteAllCards }) => {
   const taskRef = useRef();
   const dayRef = useRef();
   const timeRef = useRef();
@@ -25,6 +25,9 @@ const DashboardActions = ({ addHandler }) => {
     addHandler(taskInfo);
   };
 
+  const deleteCards = () => {
+    deleteAllCards();
+  };
   return (
     <ActionsContainer>
       <InputActions>
@@ -67,7 +70,7 @@ const DashboardActions = ({ addHandler }) => {
           <img src={addIcon} />
           Add to calendar
         </ButtonActionStyle>
-        <ButtonActionStyle btnType="delete">
+        <ButtonActionStyle btnType="delete" onClick={deleteCards}>
           <img src={removeIcon} /> Delete All
         </ButtonActionStyle>
       </ButtonsAction>
