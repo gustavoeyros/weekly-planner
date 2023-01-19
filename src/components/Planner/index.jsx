@@ -29,7 +29,7 @@ const Planner = ({ cardTask }) => {
         {cardTask.map((item) => {
           return (
             <>
-              <TaskContainer>
+              <TaskContainer key={item.id}>
                 <Time day={item.day}>{item.time}</Time>
 
                 <Issues>

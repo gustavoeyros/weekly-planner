@@ -29,18 +29,20 @@ const RegisterForm = () => {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  const stringRegEx = new RegExp(/[^a-zA-Z]/);
+  const stringRegEx = new RegExp(
+    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$/
+  );
 
   //validations
   const firstNameHandler = () => {
     firstNameRef.current.value.length === 0 ||
-    stringRegEx.test(firstNameRef.current.value)
+    stringRegEx.test(firstNameRef.current.value) === false
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
   };
   const lastNameHandler = () => {
     lastNameRef.current.value.length === 0 ||
-    stringRegEx.test(lastNameRef.current.value)
+    stringRegEx.test(lastNameRef.current.value) === false
       ? setEnteredLastName(false)
       : setEnteredLastName(true);
   };
@@ -51,13 +53,13 @@ const RegisterForm = () => {
   };
   const countryHandler = () => {
     countryRef.current.value.length === 0 ||
-    stringRegEx.test(countryRef.current.value)
+    stringRegEx.test(countryRef.current.value) === false
       ? setEnteredCountry(false)
       : setEnteredCountry(true);
   };
   const cityHandler = () => {
     cityRef.current.value.length === 0 ||
-    stringRegEx.test(cityRef.current.value)
+    stringRegEx.test(cityRef.current.value) === false
       ? setEnteredCity(false)
       : setEnteredCity(true);
   };
@@ -84,12 +86,12 @@ const RegisterForm = () => {
 
     //validations
     firstNameRef.current.value.length === 0 ||
-    stringRegEx.test(firstNameRef.current.value)
+    stringRegEx.test(firstNameRef.current.value) === false
       ? setEnteredFirstName(false)
       : setEnteredFirstName(true);
 
     lastNameRef.current.value.length === 0 ||
-    stringRegEx.test(lastNameRef.current.value)
+    stringRegEx.test(lastNameRef.current.value) === false
       ? setEnteredLastName(false)
       : setEnteredLastName(true);
 
@@ -98,12 +100,12 @@ const RegisterForm = () => {
       : setEnteredBirth(true);
 
     countryRef.current.value.length === 0 ||
-    stringRegEx.test(countryRef.current.value)
+    stringRegEx.test(countryRef.current.value) === false
       ? setEnteredCountry(false)
       : setEnteredCountry(true);
 
     cityRef.current.value.length === 0 ||
-    stringRegEx.test(cityRef.current.value)
+    stringRegEx.test(cityRef.current.value) === false
       ? setEnteredCity(false)
       : setEnteredCity(true);
 

@@ -4,7 +4,7 @@ import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
 
-const lazy = [{ id: 1, name: "default", day: "default", time: "default" }];
+const lazy = [];
 
 const Dashboard = () => {
   const [task, setTask] = useState(lazy);
