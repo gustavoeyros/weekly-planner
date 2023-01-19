@@ -91,7 +91,9 @@ const Header = () => {
       </HeaderTemperature>
 
       <HeaderLogout>
-        <img src={logoutLogo} />
+        <a href="https://compass.uol/en/home/" target="_blank">
+          <img src={logoutLogo} />
+        </a>
         <LogoutContainer>
           <img src={arrowLogo} />
           <button onClick={logoutHandler}>Logout</button>

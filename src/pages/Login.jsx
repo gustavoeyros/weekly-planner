@@ -8,7 +8,9 @@ const Register = () => {
         <LoginForm />
       </FormWrapper>
       <ImageWrapper>
-        <img src={compassLogo} />
+        <a href="https://compass.uol/en/home/" target="_blank">
+          <img src={compassLogo} />
+        </a>
       </ImageWrapper>
     </GlobalWrapper>
   );

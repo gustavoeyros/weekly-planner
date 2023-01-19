@@ -71,7 +71,7 @@ export const TemperatureContainer = styled.div`
 export const HeaderLogout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 20px;
 
   & div {
     align-items: flex-end;
@@ -81,10 +81,9 @@ export const HeaderLogout = styled.div`
 export const LogoutContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   height: 40px;
   justify-content: center;
-
+  padding-bottom: 15px;
   & img {
     width: 20px;
     height: 20px;
