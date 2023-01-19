@@ -75,3 +75,16 @@ export const Error = styled.div`
     width: 283px;
   }
 `;
+
+export const TextRegister = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 9px;
+  & span {
+    color: white;
+  }
+  & span > span {
+    color: orange;
+    cursor: pointer;
+  }
+`;

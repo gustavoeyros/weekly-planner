@@ -24,3 +24,16 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const TextLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  & span {
+    color: white;
+  }
+  & span > span {
+    color: orange;
+    cursor: pointer;
+  }
+`;

@@ -2,9 +2,14 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import DataInput from "../DataInput";
 import Title from "../Title";
-import { RegisterWrapper, TitleWrapper, InputWrapper } from "./styled";
+import {
+  RegisterWrapper,
+  TitleWrapper,
+  InputWrapper,
+  TextLogin,
+} from "./styled";
 import TextLabel from "../TextLabel";
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext } from "react";
 import { UserContext } from "../../store/user-context";
 
 const RegisterForm = () => {
@@ -151,6 +156,9 @@ const RegisterForm = () => {
       navigate("/login");
     }
   };
+  const loginPageHandler = () => {
+    navigate("/login");
+  };
   return (
     <div>
       <TitleWrapper>
@@ -241,6 +249,12 @@ const RegisterForm = () => {
           </InputWrapper>
         </RegisterWrapper>
         <Button text="Register Now" />
+        <TextLogin>
+          <span>
+            Already have an account?
+            <span onClick={loginPageHandler}> Sign In</span>
+          </span>
+        </TextLogin>
       </form>
     </div>
   );

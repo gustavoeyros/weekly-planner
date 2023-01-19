@@ -8,6 +8,7 @@ import {
   Icon,
   TitleContainer,
   Error,
+  TextRegister,
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
@@ -57,6 +58,9 @@ const LoginForm = () => {
       setHasError(true);
     }
   };
+  const registerPageHandler = () => {
+    navigate("/register");
+  };
   return (
     <GlobalLoginWrapper>
       <TitleContainer>
@@ -95,6 +99,12 @@ const LoginForm = () => {
           )}
         </LoginWrapper>
         <Button text="Log in" />
+        <TextRegister>
+          <span>
+            Don't have an account yet?
+            <span onClick={registerPageHandler}> Sign Up</span>
+          </span>
+        </TextRegister>
       </form>
     </GlobalLoginWrapper>
   );
