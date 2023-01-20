@@ -28,6 +28,7 @@ export const DayOfWeek = styled.div`
   height: 33px;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
   border-radius: 9px 9px 0px 0px;
+  cursor: pointer;
 `;
 
 export const Time = styled.div`
