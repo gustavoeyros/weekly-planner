@@ -84,8 +84,13 @@ const Header = () => {
           <p>Loading...</p>
         ) : (
           <TemperatureContainer>
-            <img src={iconCloud} />
-            <span>{temperature.current.temp_c}°</span>
+            {temperature && (
+              <>
+                <img src={iconCloud} />
+                <span>{tempetemperature.current.temp_c}°</span>
+              </>
+            )}
+            {!temperature && "Location not found."}
           </TemperatureContainer>
         )}
       </HeaderTemperature>

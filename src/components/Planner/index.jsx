@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DaysWeek,
   DayOfWeek,
@@ -22,6 +22,10 @@ const Planner = ({ cardTask, deleteCard }) => {
   const dayHandler = (day) => {
     setFilteredTask(cardTask.filter((item) => item.day === day));
   };
+
+  useEffect(() => {
+    dayHandler();
+  }, []);
   return (
     <Wrapper>
       <DaysWeek>
