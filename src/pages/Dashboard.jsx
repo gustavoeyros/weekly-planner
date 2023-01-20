@@ -5,6 +5,7 @@ import { Background } from "./styled";
 import { useState } from "react";
 
 const Dashboard = () => {
+  //add cards
   const [task, setTask] = useState([]);
 
   const addCard = (item) => {
@@ -17,6 +18,12 @@ const Dashboard = () => {
     });
   };
 
+  //delete specific card
+  const deleteCard = (id) => {
+    const newIssues = task.filter((item) => item.id !== id);
+    setTask(newIssues);
+  };
+  //delete all cards
   const deleteAllCards = () => {
     setTask([]);
   };
@@ -25,7 +32,7 @@ const Dashboard = () => {
     <Background>
       <Header />
       <DashboardActions addHandler={addCard} deleteAllCards={deleteAllCards} />
-      <Planner cardTask={task} />
+      <Planner cardTask={task} deleteCard={deleteCard} />
     </Background>
   );
 };

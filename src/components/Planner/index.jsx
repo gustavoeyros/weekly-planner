@@ -11,7 +11,10 @@ import {
   DeleteContainer,
 } from "./styled";
 
-const Planner = ({ cardTask }) => {
+const Planner = ({ cardTask, deleteCard }) => {
+  const onDeleteCard = (id) => {
+    deleteCard(id);
+  };
   return (
     <Wrapper>
       <DaysWeek>
@@ -28,18 +31,20 @@ const Planner = ({ cardTask }) => {
         <Time>Time</Time>
         {cardTask.map((item) => {
           return (
-            <>
-              <TaskContainer key={item.id}>
-                <Time day={item.day}>{item.time}</Time>
-                <Issues>
-                  <IssuesColor day={item.day} />
-                  <span>{item.name}</span>
-                  <DeleteContainer>
-                    <DeleteButton>Delete</DeleteButton>
-                  </DeleteContainer>
-                </Issues>
-              </TaskContainer>
-            </>
+            <TaskContainer key={item.id}>
+              <Time day={item.day}>{item.time}</Time>
+              <Issues>
+                <IssuesColor day={item.day} />
+
+                <span>{item.name}</span>
+
+                <DeleteContainer>
+                  <DeleteButton onClick={() => onDeleteCard(item.id)}>
+                    Delete
+                  </DeleteButton>
+                </DeleteContainer>
+              </Issues>
+            </TaskContainer>
           );
         })}
       </TimeContainer>
