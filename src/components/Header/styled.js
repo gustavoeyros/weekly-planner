@@ -57,8 +57,8 @@ export const HeaderTemperature = styled.div`
     font-size: 48px;
   }
   & img {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     margin-top: 8px;
   }
 `;
@@ -66,6 +66,7 @@ export const HeaderTemperature = styled.div`
 export const TemperatureContainer = styled.div`
   display: flex;
   gap: 15.22px;
+  align-items: center;
 `;
 
 export const HeaderLogout = styled.div`

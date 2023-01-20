@@ -2,19 +2,27 @@ import Planner from "../components/Planner";
 import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Dashboard = () => {
   //add cards
+
   const [task, setTask] = useState([]);
   const [filteredTask, setFilteredTask] = useState([]);
 
+  const [dayOfWeek, setDayOfWeek] = useState("");
+
   const addCard = (item) => {
     setTask((prevState) => {
+      /*    const filterTask = prevState.findIndex((meet) => {
+        return meet.day == item.day && meet.time == item.time;
+      }); */
+
       item = {
         id: prevState.length + 1,
         ...item,
       };
+
       return [item, ...prevState];
     });
   };
@@ -30,7 +38,8 @@ const Dashboard = () => {
   };
   //delete all cards
   const deleteAllCards = () => {
-    setTask([]);
+    const newRemove = task.filter((item) => item.day !== dayOfWeek);
+    setTask(newRemove);
   };
 
   return (
@@ -46,6 +55,9 @@ const Dashboard = () => {
         deleteCard={deleteCard}
         dayHandler={dayHandler}
         filteredTask={filteredTask}
+        deleteAllCards={deleteAllCards}
+        dayOfWeek={dayOfWeek}
+        setDayOfWeek={setDayOfWeek}
       />
     </Background>
   );

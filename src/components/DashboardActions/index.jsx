@@ -20,6 +20,7 @@ const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
       name: taskRef.current.value,
       day: dayRef.current.value,
       time: timeRef.current.value,
+      conflicts: [taskRef.current.value],
     };
 
     sendNewCard();
@@ -72,7 +73,7 @@ const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
           <img src={addIcon} />
           Add to calendar
         </ButtonActionStyle>
-        <ButtonActionStyle btnType="delete" onClick={deleteCards}>
+        <ButtonActionStyle btnType="delete" onClick={() => deleteCards()}>
           <img src={removeIcon} /> Delete All
         </ButtonActionStyle>
       </ButtonsAction>

@@ -12,8 +12,14 @@ import {
   DeleteContainer,
 } from "./styled";
 
-const Planner = ({ filteredTask, deleteCard, dayHandler, cardTask }) => {
-  const [dayOfWeek, setDayOfWeek] = useState("");
+const Planner = ({
+  filteredTask,
+  deleteCard,
+  dayHandler,
+  cardTask,
+  dayOfWeek,
+  setDayOfWeek,
+}) => {
   const onDeleteCard = (id) => {
     deleteCard(id);
   };
@@ -52,16 +58,40 @@ const Planner = ({ filteredTask, deleteCard, dayHandler, cardTask }) => {
         >
           Wednesday
         </DayOfWeek>
-        <DayOfWeek day="thursday" onClick={() => dayHandler("thursday")}>
+        <DayOfWeek
+          day="thursday"
+          onClick={() => {
+            setDayOfWeek("thursday");
+            dayHandler("thursday");
+          }}
+        >
           Thursday
         </DayOfWeek>
-        <DayOfWeek day="friday" onClick={() => dayHandler("friday")}>
+        <DayOfWeek
+          day="friday"
+          onClick={() => {
+            setDayOfWeek("friday");
+            dayHandler("friday");
+          }}
+        >
           Friday
         </DayOfWeek>
-        <DayOfWeek day="saturday" onClick={() => dayHandler("saturday")}>
+        <DayOfWeek
+          day="saturday"
+          onClick={() => {
+            setDayOfWeek("saturday");
+            dayHandler("saturday");
+          }}
+        >
           Saturday
         </DayOfWeek>
-        <DayOfWeek day="sunday" onClick={() => dayHandler("sunday")}>
+        <DayOfWeek
+          day="sunday"
+          onClick={() => {
+            setDayOfWeek("sunday");
+            dayHandler("sunday");
+          }}
+        >
           Sunday
         </DayOfWeek>
       </DaysWeek>
