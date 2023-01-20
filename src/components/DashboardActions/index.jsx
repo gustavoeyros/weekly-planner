@@ -10,7 +10,7 @@ import {
   ActionsContainer,
 } from "./styled";
 import { useRef } from "react";
-const DashboardActions = ({ addHandler, deleteAllCards }) => {
+const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
   const taskRef = useRef();
   const dayRef = useRef();
   const timeRef = useRef();
@@ -22,12 +22,14 @@ const DashboardActions = ({ addHandler, deleteAllCards }) => {
       time: timeRef.current.value,
     };
 
+    sendNewCard();
     addHandler(taskInfo);
   };
 
   const deleteCards = () => {
     deleteAllCards();
   };
+
   return (
     <ActionsContainer>
       <InputActions>

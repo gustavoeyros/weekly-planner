@@ -87,7 +87,7 @@ const Header = () => {
             {temperature && (
               <>
                 <img src={iconCloud} />
-                <span>{tempetemperature.current.temp_c}°</span>
+                <span>{temperature.current.temp_c}°</span>
               </>
             )}
             {!temperature && "Location not found."}

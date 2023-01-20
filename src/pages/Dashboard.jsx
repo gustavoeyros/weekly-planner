@@ -2,11 +2,26 @@ import Planner from "../components/Planner";
 import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+//styles
+import {
+  DaysWeek,
+  DayOfWeek,
+  Time,
+  TimeContainer,
+  TaskContainer,
+  Wrapper,
+  Issues,
+  IssuesColor,
+  DeleteButton,
+  DeleteContainer,
+} from "../components/Planner/styled";
 
 const Dashboard = () => {
   //add cards
   const [task, setTask] = useState([]);
+  const [filteredTask, setFilteredTask] = useState([]);
 
   const addCard = (item) => {
     setTask((prevState) => {
@@ -16,6 +31,10 @@ const Dashboard = () => {
       };
       return [item, ...prevState];
     });
+  };
+
+  const dayHandler = (day) => {
+    setFilteredTask(task.filter((item) => item.day === day));
   };
 
   //delete specific card
@@ -31,8 +50,17 @@ const Dashboard = () => {
   return (
     <Background>
       <Header />
-      <DashboardActions addHandler={addCard} deleteAllCards={deleteAllCards} />
-      <Planner cardTask={task} deleteCard={deleteCard} />
+      <DashboardActions
+        addHandler={addCard}
+        sendNewCard={dayHandler}
+        deleteAllCards={deleteAllCards}
+      />
+      <Planner
+        cardTask={task}
+        deleteCard={deleteCard}
+        dayHandler={dayHandler}
+        filteredTask={filteredTask}
+      />
     </Background>
   );
 };
