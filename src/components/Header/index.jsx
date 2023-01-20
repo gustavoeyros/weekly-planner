@@ -24,7 +24,7 @@ const Header = () => {
 
   useEffect(() => {
     setInterval(() => {
-      let hours = new Date().toLocaleTimeString([], {
+      hours = new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
@@ -64,6 +64,13 @@ const Header = () => {
     FindTemperatureHandler();
   }, []);
 
+  const currentDate = new Date().toLocaleDateString(["en-US"], {
+    dateStyle: "long",
+  });
+  const monthDay = currentDate.split(",")[0].concat("th, ");
+  const year = currentDate.split(",")[1];
+  const currentDateStyle = monthDay + year;
+
   return (
     <HeaderStyle>
       <HeaderTitle>
@@ -73,7 +80,10 @@ const Header = () => {
 
       <HeaderDate>
         <span>{time}</span>
-        <span>November 22th, 2022</span>
+        <span>
+          {/* November 22th, 2022 */}
+          {currentDateStyle}
+        </span>
       </HeaderDate>
 
       <HeaderTemperature>

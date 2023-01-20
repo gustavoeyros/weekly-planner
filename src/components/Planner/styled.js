@@ -50,6 +50,8 @@ export const TimeContainer = styled.div`
   gap: 14px;
   margin-left: 24px;
   padding-top: 6px;
+  height: 600px;
+  overflow-y: scroll;
 `;
 
 export const TaskContainer = styled.div`

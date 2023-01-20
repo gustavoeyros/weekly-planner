@@ -4,20 +4,6 @@ import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useEffect, useState } from "react";
 
-//styles
-import {
-  DaysWeek,
-  DayOfWeek,
-  Time,
-  TimeContainer,
-  TaskContainer,
-  Wrapper,
-  Issues,
-  IssuesColor,
-  DeleteButton,
-  DeleteContainer,
-} from "../components/Planner/styled";
-
 const Dashboard = () => {
   //add cards
   const [task, setTask] = useState([]);
