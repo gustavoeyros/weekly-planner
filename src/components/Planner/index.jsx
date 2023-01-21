@@ -10,6 +10,7 @@ import {
   IssuesColor,
   DeleteButton,
   DeleteContainer,
+  errorLine,
 } from "./styled";
 
 const Planner = ({
@@ -98,9 +99,16 @@ const Planner = ({
       <TimeContainer>
         <Time>Time</Time>
         {filteredTask.map((item) => {
+          const checkConflictsStyle =
+            item.conflicts.length > 1 ? "conflict" : "";
           return (
-            <TaskContainer key={item.id}>
-              <Time day={item.day}>{item.time}</Time>
+            <TaskContainer
+              key={item.id}
+              checkConflictsStyle={checkConflictsStyle}
+            >
+              <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
+                {item.time}
+              </Time>
 
               {item.conflicts.map((meet) => (
                 <Issues>

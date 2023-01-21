@@ -42,6 +42,19 @@ export const Time = styled.div`
   height: 85px;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
   border-radius: 10px;
+
+  ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? `&:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: #000000b2;
+    margin-left: 92px;
+  }`
+      : ""}
 `;
 
 export const TimeContainer = styled.div`
@@ -58,6 +71,30 @@ export const TaskContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 18px;
+  align-items: center;
+
+  ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? ` & div:nth-child(1) {
+    background-color: #000000b2;
+    color: white;
+  }`
+      : ""}
+
+  ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? `
+  &:after {
+    position: absolute;
+    content: "";
+    width: 90%;
+    height: 0px;
+    border: 3px solid #000000b2;
+    border-radius: 5px;
+    margin-left: 87px;
+  }
+  `
+      : ""}
 `;
 
 export const Issues = styled.div`
@@ -115,3 +152,5 @@ export const DeleteContainer = styled.div`
 
   width: 100%;
 `;
+
+export const errorLine = styled.div``;
