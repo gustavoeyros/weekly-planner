@@ -80,10 +80,7 @@ const Header = () => {
 
       <HeaderDate>
         <span>{time}</span>
-        <span>
-          {/* November 22th, 2022 */}
-          {currentDateStyle}
-        </span>
+        <span>{currentDateStyle}</span>
       </HeaderDate>
 
       <HeaderTemperature>

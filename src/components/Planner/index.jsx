@@ -107,13 +107,15 @@ const Planner = ({
               </Time>
 
               {item.conflicts.map((meet, indexMeet) => (
-                <Issues key={Math.random()}>
+                <Issues key={`${item.id}_${indexMeet}`}>
                   <IssuesColor day={item.day} />
 
                   <span>{meet}</span>
 
                   <DeleteContainer>
-                    <DeleteButton onClick={() => onDeleteCard(indexMeet)}>
+                    <DeleteButton
+                      onClick={() => onDeleteCard(`${item.id}_${indexMeet}`)}
+                    >
                       Delete
                     </DeleteButton>
                   </DeleteContainer>

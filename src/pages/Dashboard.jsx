@@ -36,9 +36,18 @@ const Dashboard = () => {
 
   //delete specific card
   const deleteCard = (id) => {
+    const getOriginalID = id.split("_");
     const prevTask = [...task];
-    console.log(prevTask[0].conflicts);
-    console.log("Id: " + id);
+    const searchConflictIndex = prevTask.findIndex((meet) => {
+      return meet.id == getOriginalID[0];
+    });
+
+    if (prevTask[searchConflictIndex].conflicts.length === 1) {
+      prevTask.splice(searchConflictIndex, 1);
+    } else {
+      prevTask[searchConflictIndex].conflicts.splice(getOriginalID[1], 1);
+    }
+    setTask(prevTask);
   };
 
   //delete all cards
