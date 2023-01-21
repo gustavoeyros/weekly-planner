@@ -26,6 +26,7 @@ const Dashboard = () => {
         ...item,
       });
     }
+
     setTask(updatedTask);
   };
 
@@ -35,9 +36,11 @@ const Dashboard = () => {
 
   //delete specific card
   const deleteCard = (id) => {
-    const newIssues = task.filter((item) => item.id !== id);
-    setTask(newIssues);
+    const prevTask = [...task];
+    console.log(prevTask[0].conflicts);
+    console.log("Id: " + id);
   };
+
   //delete all cards
   const deleteAllCards = () => {
     const newRemove = task.filter((item) => item.day !== dayOfWeek);

@@ -72,6 +72,7 @@ export const TaskContainer = styled.div`
   width: 100%;
   gap: 18px;
   align-items: center;
+  position: relative;
 
   ${(props) =>
     props.checkConflictsStyle === "conflict"
@@ -152,5 +153,3 @@ export const DeleteContainer = styled.div`
 
   width: 100%;
 `;
-
-export const errorLine = styled.div``;

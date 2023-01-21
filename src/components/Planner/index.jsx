@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   DaysWeek,
   DayOfWeek,
@@ -10,7 +10,6 @@ import {
   IssuesColor,
   DeleteButton,
   DeleteContainer,
-  errorLine,
 } from "./styled";
 
 const Planner = ({
@@ -102,22 +101,19 @@ const Planner = ({
           const checkConflictsStyle =
             item.conflicts.length > 1 ? "conflict" : "";
           return (
-            <TaskContainer
-              key={item.id}
-              checkConflictsStyle={checkConflictsStyle}
-            >
+            <TaskContainer checkConflictsStyle={checkConflictsStyle}>
               <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
                 {item.time}
               </Time>
 
-              {item.conflicts.map((meet) => (
-                <Issues>
+              {item.conflicts.map((meet, indexMeet) => (
+                <Issues key={Math.random()}>
                   <IssuesColor day={item.day} />
 
                   <span>{meet}</span>
 
                   <DeleteContainer>
-                    <DeleteButton onClick={() => onDeleteCard(item.id)}>
+                    <DeleteButton onClick={() => onDeleteCard(indexMeet)}>
                       Delete
                     </DeleteButton>
                   </DeleteContainer>
