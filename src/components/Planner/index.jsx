@@ -101,17 +101,20 @@ const Planner = ({
           return (
             <TaskContainer key={item.id}>
               <Time day={item.day}>{item.time}</Time>
-              <Issues>
-                <IssuesColor day={item.day} />
 
-                <span>{item.name}</span>
+              {item.conflicts.map((meet) => (
+                <Issues>
+                  <IssuesColor day={item.day} />
 
-                <DeleteContainer>
-                  <DeleteButton onClick={() => onDeleteCard(item.id)}>
-                    Delete
-                  </DeleteButton>
-                </DeleteContainer>
-              </Issues>
+                  <span>{meet}</span>
+
+                  <DeleteContainer>
+                    <DeleteButton onClick={() => onDeleteCard(item.id)}>
+                      Delete
+                    </DeleteButton>
+                  </DeleteContainer>
+                </Issues>
+              ))}
             </TaskContainer>
           );
         })}

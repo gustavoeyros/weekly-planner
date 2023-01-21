@@ -13,18 +13,20 @@ const Dashboard = () => {
   const [dayOfWeek, setDayOfWeek] = useState("");
 
   const addCard = (item) => {
-    setTask((prevState) => {
-      /*    const filterTask = prevState.findIndex((meet) => {
-        return meet.day == item.day && meet.time == item.time;
-      }); */
-
-      item = {
-        id: prevState.length + 1,
-        ...item,
-      };
-
-      return [item, ...prevState];
+    const conflict = [...task].findIndex((meet) => {
+      return meet.day === item.day && meet.time === item.time;
     });
+
+    const updatedTask = [...task];
+    if (conflict >= 0) {
+      updatedTask[conflict].conflicts.push(item.name);
+    } else {
+      updatedTask.push({
+        id: updatedTask.length + 1,
+        ...item,
+      });
+    }
+    setTask(updatedTask);
   };
 
   const dayHandler = (day) => {
