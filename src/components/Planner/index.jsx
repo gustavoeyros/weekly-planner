@@ -19,6 +19,7 @@ const Planner = ({
   cardTask,
   dayOfWeek,
   setDayOfWeek,
+  sortTime,
 }) => {
   const onDeleteCard = (id) => {
     deleteCard(id);
@@ -26,6 +27,7 @@ const Planner = ({
 
   useEffect(() => {
     dayHandler(dayOfWeek);
+    sortTime();
   }, [cardTask]);
 
   return (
@@ -100,10 +102,12 @@ const Planner = ({
         {filteredTask.map((item) => {
           const checkConflictsStyle =
             item.conflicts.length > 1 ? "conflict" : "";
+
+          const timeStyle = item.time.split(":");
           return (
             <TaskContainer checkConflictsStyle={checkConflictsStyle}>
               <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
-                {item.time}
+                {`${timeStyle[0]}h${timeStyle[1]}m`}
               </Time>
 
               {item.conflicts.map((meet, indexMeet) => (

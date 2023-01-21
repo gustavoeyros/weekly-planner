@@ -34,6 +34,11 @@ const Dashboard = () => {
     setFilteredTask(task.filter((item) => item.day === day));
   };
 
+  const sortTime = () => {
+    const prevTime = [...task];
+    setFilteredTask(prevTime.sort((a, b) => a.time.localeCompare(b.time)));
+  };
+
   //delete specific card
   const deleteCard = (id) => {
     const getOriginalID = id.split("_");
@@ -72,6 +77,7 @@ const Dashboard = () => {
         deleteAllCards={deleteAllCards}
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
+        sortTime={sortTime}
       />
     </Background>
   );
