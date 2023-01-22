@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const Dashboard = () => {
   //add cards
@@ -32,7 +31,11 @@ const Dashboard = () => {
   };
 
   const dayHandler = (day) => {
-    setFilteredTask(task.filter((item) => item.day === day));
+    setFilteredTask(
+      task
+        .filter((item) => item.day === day)
+        .sort((a, b) => a.time.localeCompare(b.time))
+    );
   };
 
   const sortTime = () => {

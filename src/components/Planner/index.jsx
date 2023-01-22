@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useEffect } from "react";
 import {
   DaysWeek,
@@ -21,6 +22,8 @@ const Planner = ({
   setDayOfWeek,
   sortTime,
 }) => {
+  const [clickEffect, setClickEffect] = useState(0);
+
   const onDeleteCard = (id) => {
     deleteCard(id);
   };
@@ -29,18 +32,15 @@ const Planner = ({
     dayHandler(dayOfWeek);
   }, [cardTask]);
 
-  useEffect(() => {
-    sortTime();
-  }, []);
-
   return (
     <Wrapper>
-      <DaysWeek>
+      <DaysWeek clickEffect={clickEffect}>
         <DayOfWeek
           day="monday"
           onClick={() => {
             setDayOfWeek("monday");
             dayHandler("monday");
+            setClickEffect(1);
           }}
         >
           Monday
@@ -50,6 +50,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("tuesday");
             dayHandler("tuesday");
+            setClickEffect(2);
           }}
         >
           Tuesday
@@ -59,6 +60,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("wednesday");
             dayHandler("wednesday");
+            setClickEffect(3);
           }}
         >
           Wednesday
@@ -68,6 +70,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("thursday");
             dayHandler("thursday");
+            setClickEffect(4);
           }}
         >
           Thursday
@@ -77,6 +80,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("friday");
             dayHandler("friday");
+            setClickEffect(5);
           }}
         >
           Friday
@@ -86,6 +90,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("saturday");
             dayHandler("saturday");
+            setClickEffect(6);
           }}
         >
           Saturday
@@ -95,6 +100,7 @@ const Planner = ({
           onClick={() => {
             setDayOfWeek("sunday");
             dayHandler("sunday");
+            setClickEffect(7);
           }}
         >
           Sunday

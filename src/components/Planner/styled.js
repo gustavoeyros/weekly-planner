@@ -15,6 +15,10 @@ export const DaysWeek = styled.div`
   display: flex;
   justify-content: center;
   gap: 3px;
+
+  & div:nth-child(${(props) => props.clickEffect}) {
+    width: 290px;
+  }
 `;
 
 export const DayOfWeek = styled.div`
@@ -24,7 +28,9 @@ export const DayOfWeek = styled.div`
   font-weight: 600;
   padding-left: 7px;
   font-size: 20px;
+  //width: 240px;
   width: 240px;
+  transition: 0.5s;
   height: 33px;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
   border-radius: 9px 9px 0px 0px;
