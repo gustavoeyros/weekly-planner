@@ -27,8 +27,11 @@ const Planner = ({
 
   useEffect(() => {
     dayHandler(dayOfWeek);
-    sortTime();
   }, [cardTask]);
+
+  useEffect(() => {
+    sortTime();
+  }, []);
 
   return (
     <Wrapper>

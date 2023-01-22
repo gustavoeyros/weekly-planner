@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   //add cards
@@ -35,8 +36,9 @@ const Dashboard = () => {
   };
 
   const sortTime = () => {
-    const prevTime = [...task];
-    setFilteredTask(prevTime.sort((a, b) => a.time.localeCompare(b.time)));
+    setFilteredTask(
+      [...filteredTask].sort((a, b) => a.time.localeCompare(b.time))
+    );
   };
 
   //delete specific card
@@ -68,6 +70,7 @@ const Dashboard = () => {
         addHandler={addCard}
         sendNewCard={dayHandler}
         deleteAllCards={deleteAllCards}
+        sortTime={sortTime}
       />
       <Planner
         cardTask={task}
