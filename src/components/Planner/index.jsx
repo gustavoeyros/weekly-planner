@@ -13,6 +13,7 @@ import {
   DeleteContainer,
   TimeStartContainer,
   IssuesContainer,
+  OnlyTasksContainer,
 } from "./styled";
 
 const Planner = ({
@@ -23,7 +24,7 @@ const Planner = ({
   dayOfWeek,
   setDayOfWeek,
 }) => {
-  const [clickEffect, setClickEffect] = useState(0);
+  const [clickEffect, setClickEffect] = useState(1);
 
   const onDeleteCard = (id) => {
     deleteCard(id);

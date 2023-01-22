@@ -10,8 +10,8 @@ export const Wrapper = styled.div`
   --saturday-color: rgba(255, 206, 0, 0.7);
   --sunday-color: rgba(255, 0, 36, 0.5);
 
-  height: 815px;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     width: 16px;
@@ -32,6 +32,8 @@ export const DaysWeek = styled.div`
 
   & div:nth-child(${(props) => props.clickEffect}) {
     width: 290px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+      0px 4px 24px rgba(168, 168, 168, 0.25);
   }
 `;
 
@@ -91,6 +93,19 @@ export const TimeContainer = styled.div`
   gap: 14px;
   margin-left: 24px;
   padding-top: 6px;
+  height: 815px;
+  overflow-x: scroll;
+
+  ::-webkit-scrollbar {
+    width: 16px;
+    background: #ffffff;
+    border-radius: 22px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #dcdfe3;
+    border-radius: 8px;
+  }
 `;
 
 export const TaskContainer = styled.div`
@@ -182,4 +197,7 @@ export const DeleteContainer = styled.div`
 
 export const IssuesContainer = styled.div`
   display: flex;
+  gap: 16px;
 `;
+
+export const OnlyTasksContainer = styled.div``;

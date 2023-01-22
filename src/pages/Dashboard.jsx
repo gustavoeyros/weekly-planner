@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [task, setTask] = useState([]);
   const [filteredTask, setFilteredTask] = useState([]);
 
-  const [dayOfWeek, setDayOfWeek] = useState("");
+  const [dayOfWeek, setDayOfWeek] = useState("monday");
 
   const addCard = (item) => {
     const conflict = [...task].findIndex((meet) => {
