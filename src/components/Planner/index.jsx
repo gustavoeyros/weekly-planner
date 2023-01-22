@@ -12,6 +12,7 @@ import {
   DeleteButton,
   DeleteContainer,
   TimeStartContainer,
+  IssuesContainer,
 } from "./styled";
 
 const Planner = ({
@@ -110,32 +111,41 @@ const Planner = ({
         <TimeStartContainer>
           <Time>Time</Time>
         </TimeStartContainer>
+
         {filteredTask.map((item) => {
           const checkConflictsStyle =
             item.conflicts.length > 1 ? "conflict" : "";
 
           const timeStyle = item.time.split(":");
           return (
-            <TaskContainer checkConflictsStyle={checkConflictsStyle}>
+            <TaskContainer
+              key={item.id}
+              checkConflictsStyle={checkConflictsStyle}
+            >
               <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
                 {`${timeStyle[0]}h${timeStyle[1]}m`}
               </Time>
 
-              {item.conflicts.map((meet, indexMeet) => (
-                <Issues key={`${item.id}_${indexMeet}`}>
-                  <IssuesColor day={item.day} />
+              <IssuesContainer>
+                {item.conflicts.map((meet, indexMeet) => (
+                  <Issues key={`${item.id}_${indexMeet}`}>
+                    <IssuesColor
+                      day={item.day}
+                      checkConflictsStyle={checkConflictsStyle}
+                    />
 
-                  <span>{meet}</span>
+                    <span>{meet}</span>
 
-                  <DeleteContainer>
-                    <DeleteButton
-                      onClick={() => onDeleteCard(`${item.id}_${indexMeet}`)}
-                    >
-                      Delete
-                    </DeleteButton>
-                  </DeleteContainer>
-                </Issues>
-              ))}
+                    <DeleteContainer>
+                      <DeleteButton
+                        onClick={() => onDeleteCard(`${item.id}_${indexMeet}`)}
+                      >
+                        Delete
+                      </DeleteButton>
+                    </DeleteContainer>
+                  </Issues>
+                ))}
+              </IssuesContainer>
             </TaskContainer>
           );
         })}

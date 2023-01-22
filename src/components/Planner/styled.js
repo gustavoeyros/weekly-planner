@@ -55,13 +55,21 @@ export const Time = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--${({ day }) => day}-color);
+  background: ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? `#000000b2`
+      : `var(--${props.day}-color)`};
   font-weight: 800;
+
+  color: ${(props) =>
+    props.checkConflictsStyle === "conflict" ? `white` : `black`};
+
   font-size: 17px;
   width: 85px;
   height: 85px;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
   border-radius: 10px;
+  padding: 10px;
 
   ${(props) =>
     props.checkConflictsStyle === "conflict"
@@ -91,14 +99,6 @@ export const TaskContainer = styled.div`
   gap: 18px;
   align-items: center;
   position: relative;
-
-  ${(props) =>
-    props.checkConflictsStyle === "conflict"
-      ? ` & div:nth-child(1) {
-    background-color: #000000b2;
-    color: white;
-  }`
-      : ""}
 
   ${(props) =>
     props.checkConflictsStyle === "conflict"
@@ -144,8 +144,11 @@ export const Issues = styled.div`
 
 export const IssuesColor = styled.div`
   display: flex;
-
-  background: var(--${({ day }) => day}-color);
+  // background: var(--${({ day }) => day}-color);
+  background: ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? `#000000b2`
+      : `var(--${props.day}-color)`};
   width: 20px;
   height: 85px;
   border-radius: 15px 0px 0px 15px;
@@ -175,4 +178,8 @@ export const DeleteContainer = styled.div`
   justify-content: flex-end;
 
   width: 100%;
+`;
+
+export const IssuesContainer = styled.div`
+  display: flex;
 `;
