@@ -31,4 +31,5 @@ export const Background = styled.div`
   background-position: bottom right;
   height: 100vh;
   background-color: #f3f3f3;
+  overflow-y: hidden;
 `;

@@ -38,12 +38,6 @@ const Dashboard = () => {
     );
   };
 
-  const sortTime = () => {
-    setFilteredTask(
-      [...filteredTask].sort((a, b) => a.time.localeCompare(b.time))
-    );
-  };
-
   //delete specific card
   const deleteCard = (id) => {
     const getOriginalID = id.split("_");
@@ -73,7 +67,6 @@ const Dashboard = () => {
         addHandler={addCard}
         sendNewCard={dayHandler}
         deleteAllCards={deleteAllCards}
-        sortTime={sortTime}
       />
       <Planner
         cardTask={task}
@@ -83,7 +76,6 @@ const Dashboard = () => {
         deleteAllCards={deleteAllCards}
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
-        sortTime={sortTime}
       />
     </Background>
   );

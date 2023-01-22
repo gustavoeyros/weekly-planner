@@ -7,7 +7,7 @@ export const InputActions = styled.div`
 
 export const InputTask = styled.input`
   background: #ffffff;
-  border: 1px solid #fece00;
+  border: 1px solid ${(props) => (props.error === false ? "red" : "#fece00")};
   border-radius: 10px;
   padding: 12px 15.28px;
   width: 391px;
@@ -31,7 +31,7 @@ export const TimeInput = styled.input`
   height: 45px;
 
   background: #ffffff;
-  border: 1px solid #fece00;
+  border: 1px solid ${(props) => (props.error === false ? "red" : "#fece00")};
   border-radius: 10px;
   padding: 13px 8px 12px;
   outline: none;

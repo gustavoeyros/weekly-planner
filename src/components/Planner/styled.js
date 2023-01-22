@@ -9,6 +9,20 @@ export const Wrapper = styled.div`
   --friday-color: rgba(255, 128, 0, 0.7);
   --saturday-color: rgba(255, 206, 0, 0.7);
   --sunday-color: rgba(255, 0, 36, 0.5);
+
+  height: 815px;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 16px;
+    background: #ffffff;
+    border-radius: 22px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #dcdfe3;
+    border-radius: 8px;
+  }
 `;
 
 export const DaysWeek = styled.div`
@@ -69,8 +83,6 @@ export const TimeContainer = styled.div`
   gap: 14px;
   margin-left: 24px;
   padding-top: 6px;
-  height: 600px;
-  overflow-y: scroll;
 `;
 
 export const TaskContainer = styled.div`
@@ -102,6 +114,11 @@ export const TaskContainer = styled.div`
   }
   `
       : ""}
+`;
+
+export const TimeStartContainer = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
 export const Issues = styled.div`

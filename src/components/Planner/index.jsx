@@ -11,6 +11,7 @@ import {
   IssuesColor,
   DeleteButton,
   DeleteContainer,
+  TimeStartContainer,
 } from "./styled";
 
 const Planner = ({
@@ -20,7 +21,6 @@ const Planner = ({
   cardTask,
   dayOfWeek,
   setDayOfWeek,
-  sortTime,
 }) => {
   const [clickEffect, setClickEffect] = useState(0);
 
@@ -107,7 +107,9 @@ const Planner = ({
         </DayOfWeek>
       </DaysWeek>
       <TimeContainer>
-        <Time>Time</Time>
+        <TimeStartContainer>
+          <Time>Time</Time>
+        </TimeStartContainer>
         {filteredTask.map((item) => {
           const checkConflictsStyle =
             item.conflicts.length > 1 ? "conflict" : "";

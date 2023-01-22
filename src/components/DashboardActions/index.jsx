@@ -9,11 +9,26 @@ import {
   ButtonActionStyle,
   ActionsContainer,
 } from "./styled";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
   const taskRef = useRef();
   const dayRef = useRef();
   const timeRef = useRef();
+
+  const [taskState, setTaskState] = useState(null);
+  const [timeState, setTimeState] = useState(null);
+
+  const descriptionHandler = () => {
+    taskRef.current.value.length === 0
+      ? setTaskState(false)
+      : setTaskState(true);
+  };
+
+  const timeHandler = () => {
+    timeRef.current.value.length === 0
+      ? setTimeState(false)
+      : setTimeState(true);
+  };
 
   const submitHandler = () => {
     const taskInfo = {
@@ -23,8 +38,18 @@ const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
       conflicts: [taskRef.current.value],
     };
 
-    sendNewCard();
-    addHandler(taskInfo);
+    if (taskRef.current.value.length === 0) {
+      setTaskState(false);
+    }
+
+    if (timeRef.current.value.length === 0) {
+      setTimeState(false);
+    }
+
+    if (taskState && timeState) {
+      sendNewCard();
+      addHandler(taskInfo);
+    }
   };
 
   const deleteCards = () => {
@@ -34,7 +59,13 @@ const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
   return (
     <ActionsContainer>
       <InputActions>
-        <InputTask type="text" placeholder="Task or issue" ref={taskRef} />
+        <InputTask
+          type="text"
+          placeholder="Task or issue"
+          ref={taskRef}
+          onChange={descriptionHandler}
+          error={taskState}
+        />
         <DaySelect ref={dayRef}>
           <option value="monday" id="monday">
             Monday
@@ -65,7 +96,12 @@ const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
           </option>
         </DaySelect>
 
-        <TimeInput type="time" ref={timeRef} />
+        <TimeInput
+          type="time"
+          ref={timeRef}
+          onChange={timeHandler}
+          error={timeState}
+        />
       </InputActions>
 
       <ButtonsAction>
