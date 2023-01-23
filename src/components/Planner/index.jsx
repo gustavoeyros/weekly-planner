@@ -13,7 +13,6 @@ import {
   DeleteContainer,
   TimeStartContainer,
   IssuesContainer,
-  OnlyTasksContainer,
 } from "./styled";
 
 const Planner = ({
@@ -127,7 +126,7 @@ const Planner = ({
                 {`${timeStyle[0]}h${timeStyle[1]}m`}
               </Time>
 
-              <IssuesContainer>
+              <IssuesContainer checkConflictsStyle={checkConflictsStyle}>
                 {item.conflicts.map((meet, indexMeet) => (
                   <Issues key={`${item.id}_${indexMeet}`}>
                     <IssuesColor

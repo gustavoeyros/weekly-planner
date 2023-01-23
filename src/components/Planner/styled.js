@@ -114,21 +114,6 @@ export const TaskContainer = styled.div`
   gap: 18px;
   align-items: center;
   position: relative;
-
-  ${(props) =>
-    props.checkConflictsStyle === "conflict"
-      ? `
-  &:after {
-    position: absolute;
-    content: "";
-    width: 90%;
-    height: 0px;
-    border: 3px solid #000000b2;
-    border-radius: 5px;
-    margin-left: 87px;
-  }
-  `
-      : ""}
 `;
 
 export const TimeStartContainer = styled.div`
@@ -198,6 +183,22 @@ export const DeleteContainer = styled.div`
 export const IssuesContainer = styled.div`
   display: flex;
   gap: 16px;
-`;
+  align-items: center;
+  justify-content: left;
+  position: relative;
 
-export const OnlyTasksContainer = styled.div``;
+  ${(props) =>
+    props.checkConflictsStyle === "conflict"
+      ? `
+  &:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0px;
+    border: 3px solid #000000b2;
+    border-radius: 5px;
+    
+  }
+  `
+      : ""}
+`;
