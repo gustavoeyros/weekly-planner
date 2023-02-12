@@ -49,7 +49,7 @@ npm run dev
     <li>Validação dos inputs para adicionar a task.</li>
     <li>Cor do card dinâmico, baseado no dia da semana selecionado.</li>
     <li>Verificação de tasks em conflito (dia e horário iguais) com sinalização visual.</li>
-    <li>Cards ordenados por tempo e filtrados através do tempo selecionado no topo.</li>
+    <li>Cards ordenados por horário e filtrados através do tempo selecionado no topo.</li>
 </ul>
 
 ## Tecnologias
