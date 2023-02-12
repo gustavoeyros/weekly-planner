@@ -15,6 +15,23 @@ import {
   IssuesContainer,
 } from "./styled";
 
+interface IUser {
+  name: string;
+  day: string;
+  time: string;
+  conflicts: string[];
+  id: number;
+}
+
+interface IPlanner {
+  filteredTask: IUser[];
+  deleteCard: (id: number, indexMeet: number) => void;
+  dayHandler: (day: string) => void;
+  cardTask: IUser[];
+  dayOfWeek: string;
+  setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
+}
+
 const Planner = ({
   filteredTask,
   deleteCard,
@@ -22,11 +39,11 @@ const Planner = ({
   cardTask,
   dayOfWeek,
   setDayOfWeek,
-}) => {
+}: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
-  const onDeleteCard = (id) => {
-    deleteCard(id);
+  const onDeleteCard = (id: number, indexMeet: number) => {
+    deleteCard(id, indexMeet);
   };
 
   useEffect(() => {
@@ -112,7 +129,7 @@ const Planner = ({
           <Time>Time</Time>
         </TimeStartContainer>
 
-        {filteredTask.map((item) => {
+        {filteredTask.map((item: IUser) => {
           const checkConflictsStyle =
             item.conflicts.length > 1 ? "conflict" : "";
 
@@ -120,7 +137,7 @@ const Planner = ({
           return (
             <TaskContainer
               key={item.id}
-              checkConflictsStyle={checkConflictsStyle}
+              //checkConflictsStyle={checkConflictsStyle}
             >
               <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
                 {`${timeStyle[0]}h${timeStyle[1]}m`}
@@ -138,7 +155,7 @@ const Planner = ({
 
                     <DeleteContainer>
                       <DeleteButton
-                        onClick={() => onDeleteCard(`${item.id}_${indexMeet}`)}
+                        onClick={() => onDeleteCard(item.id, indexMeet)}
                       >
                         Delete
                       </DeleteButton>

@@ -5,7 +5,11 @@ import Dashboard from "../pages/Dashboard";
 import { useContext } from "react";
 import { UserContext } from "../store/user-context";
 const RoutesManager = () => {
-  const { isLogged } = useContext(UserContext);
+  type loggedContext = {
+    isLogged: boolean;
+  };
+
+  const { isLogged } = useContext(UserContext) as loggedContext;
 
   return (
     <Routes>
@@ -15,7 +19,7 @@ const RoutesManager = () => {
         path="/dashboard"
         element={!isLogged ? <Navigate to="/register" /> : <Dashboard />}
       />
-      <Route path="/" element={<Navigate to="/register" />} exact />
+      <Route path="/" element={<Navigate to="/register" />} />
     </Routes>
   );
 };

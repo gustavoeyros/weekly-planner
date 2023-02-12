@@ -5,7 +5,20 @@ export const InputActions = styled.div`
   gap: 3px;
 `;
 
-export const InputTask = styled.input`
+interface IActionsProps {
+  error?: boolean | null;
+  btnType?: string | null;
+}
+
+interface ITeste {
+  type: string;
+  placeholder: string;
+  ref: React.RefObject<any>;
+  onChange: () => void;
+  error: boolean | null;
+}
+
+export const InputTask = styled.input<ITeste>`
   background: #ffffff;
   border: 1px solid ${(props) => (props.error === false ? "red" : "#fece00")};
   border-radius: 10px;
@@ -31,7 +44,8 @@ export const TimeInput = styled.input`
   height: 45px;
 
   background: #ffffff;
-  border: 1px solid ${(props) => (props.error === false ? "red" : "#fece00")};
+  border: 1px solid
+    ${(props: IActionsProps) => (props.error === false ? "red" : "#fece00")};
   border-radius: 10px;
   padding: 13px 8px 12px;
   outline: none;
@@ -52,7 +66,8 @@ export const ButtonActionStyle = styled.button`
   align-items: center;
   border: none;
   color: white;
-  background: ${(props) => (props.btnType === "add" ? "#00BA88" : "#FF3D1F")};
+  background: ${(props: IActionsProps) =>
+    props.btnType === "add" ? "#00BA88" : "#FF3D1F"};
   font-size: 20px;
   font-weight: 700;
   border-radius: 10px;

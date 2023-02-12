@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import { PropsWithChildren } from "react";
 import { useState } from "react";
 
 export const UserContext = React.createContext({});
 
-export const UserProvider = ({ children }) => {
+export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [userInput, setUserInput] = useState({
     fullName: "",
     birth: "",
@@ -15,7 +16,12 @@ export const UserProvider = ({ children }) => {
   });
 
   //check loggedIn
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("logged"));
+
+  type loggedType = string | null | boolean;
+
+  const [isLogged, setIsLogged] = useState<loggedType>(
+    localStorage.getItem("logged")
+  );
 
   const logoutHandler = () => {
     localStorage.removeItem("logged");
@@ -23,7 +29,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const loginHandler = () => {
-    localStorage.setItem("logged", true);
+    localStorage.setItem("logged", "true");
     setIsLogged(true);
   };
 

@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
+type inputProps = {
+  hasError?: boolean | null;
+  submitCheck?: boolean | null;
+};
+
 export const InputStyle = styled.input`
   width: 379px;
   height: 60px;
   border-radius: 50px;
-  ${({ hasError, submitCheck }) =>
+  ${({ hasError, submitCheck }: inputProps) =>
     hasError === false || submitCheck === true
       ? "border 1px solid #E9B425;"
       : "border: 1px solid #ffffff;"}

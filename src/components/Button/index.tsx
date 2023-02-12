@@ -1,5 +1,10 @@
 import { ButtonStyle } from "./styled";
-const Button = ({ text }) => {
+
+type TButton = {
+  text: string;
+};
+
+const Button = ({ text }: TButton) => {
   return <ButtonStyle text={text}>{text}</ButtonStyle>;
 };
 

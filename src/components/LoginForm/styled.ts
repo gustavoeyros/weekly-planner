@@ -7,12 +7,18 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+type propslogin = {
+  hasError?: boolean | null;
+  empty?: boolean | null;
+  iconFor?: string | null;
+};
+
 export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
   margin-top: 135px;
-  margin-bottom: ${({ hasError }) => (hasError ? "47px" : "115px")};
+  margin-bottom: ${({ hasError }: propslogin) => (hasError ? "47px" : "115px")};
 
   & div:nth-child(4) {
     display: flex;
@@ -34,7 +40,7 @@ export const IconContainer = styled.div`
   & input:focus ~ i {
     transform: translateX(-50px);
   }
-  ${(props) =>
+  ${(props: propslogin) =>
     props.empty
       ? `&  i {
     transform: translateX(-50px);
@@ -55,7 +61,8 @@ export const Icon = styled.i`
   transform: translateX(100%);
   transition: 1.5s;
   //height
-  height: ${(props) => (props.iconFor === "username" ? "20" : "25")}px;
+  height: ${(props: propslogin) =>
+    props.iconFor === "username" ? "20" : "25"}px;
   //25.1 20
   //image
   ${(props) =>

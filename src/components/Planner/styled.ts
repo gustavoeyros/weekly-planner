@@ -25,12 +25,18 @@ export const Wrapper = styled.div`
   }
 `;
 
+interface daysProps {
+  clickEffect?: number;
+  day?: string;
+  checkConflictsStyle?: string;
+}
+
 export const DaysWeek = styled.div`
   display: flex;
   justify-content: center;
   gap: 3px;
 
-  & div:nth-child(${(props) => props.clickEffect}) {
+  & div:nth-child(${(props: daysProps) => props.clickEffect}) {
     width: 290px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
       0px 4px 24px rgba(168, 168, 168, 0.25);
@@ -40,7 +46,7 @@ export const DaysWeek = styled.div`
 export const DayOfWeek = styled.div`
   display: flex;
   align-items: center;
-  background-color: var(--${({ day }) => day}-color);
+  background-color: var(--${({ day }: daysProps) => day}-color);
   font-weight: 600;
   padding-left: 7px;
   font-size: 20px;
@@ -57,7 +63,7 @@ export const Time = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(props) =>
+  background: ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict"
       ? `#000000b2`
       : `var(--${props.day}-color)`};
@@ -145,7 +151,7 @@ export const Issues = styled.div`
 export const IssuesColor = styled.div`
   display: flex;
   // background: var(--${({ day }) => day}-color);
-  background: ${(props) =>
+  background: ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict"
       ? `#000000b2`
       : `var(--${props.day}-color)`};
@@ -187,7 +193,7 @@ export const IssuesContainer = styled.div`
   justify-content: left;
   position: relative;
 
-  ${(props) =>
+  ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict"
       ? `
   &:after {

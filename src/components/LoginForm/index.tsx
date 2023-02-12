@@ -17,40 +17,48 @@ import { useContext } from "react";
 import { UserContext } from "../../store/user-context";
 
 const LoginForm = () => {
-  const userCtx = useContext(UserContext);
+  interface actionsContext {
+    onLogin: () => void;
+  }
+
+  const userCtx = useContext(UserContext) as actionsContext;
 
   const navigate = useNavigate();
-  const [userEmpty, setUserEmpty] = useState(null);
-  const [passwordEmpty, setPasswordEmpty] = useState(null);
-  const [hasError, setHasError] = useState(null);
-  const userStorage = JSON.parse(localStorage.getItem("user"));
+  const [userEmpty, setUserEmpty] = useState<boolean | null>(null);
+  const [passwordEmpty, setPasswordEmpty] = useState<boolean | null>(null);
+  const [hasError, setHasError] = useState<boolean | null>(null);
+  const userStorage = JSON.parse(localStorage.getItem("user") || "");
   const emailStorage = userStorage?.email;
   const nameStorage = userStorage?.fullName;
   const passwordStorage = userStorage?.password;
 
-  const userRef = useRef();
-  const passwordRef = useRef();
+  const userRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const loginHandler = () => {
-    userRef.current.value.length !== 0
-      ? setUserEmpty(true)
-      : setUserEmpty(false);
+    if (userRef.current) {
+      userRef.current.value.length !== 0
+        ? setUserEmpty(true)
+        : setUserEmpty(false);
+    }
   };
 
   const passwordHandler = () => {
-    passwordRef.current.value.length !== 0
-      ? setPasswordEmpty(true)
-      : setPasswordEmpty(false);
+    if (passwordRef.current) {
+      passwordRef.current.value.length !== 0
+        ? setPasswordEmpty(true)
+        : setPasswordEmpty(false);
+    }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
-      (userRef.current.value === nameStorage &&
-        passwordRef.current.value === passwordStorage) ||
-      (userRef.current.value === emailStorage &&
-        passwordRef.current.value === passwordStorage)
+      (userRef.current?.value === nameStorage &&
+        passwordRef.current?.value === passwordStorage) ||
+      (userRef.current?.value === emailStorage &&
+        passwordRef.current?.value === passwordStorage)
     ) {
       navigate("/dashboard");
       userCtx.onLogin();

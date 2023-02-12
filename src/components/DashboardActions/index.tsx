@@ -10,48 +10,65 @@ import {
   ActionsContainer,
 } from "./styled";
 import { useRef, useState } from "react";
-const DashboardActions = ({ addHandler, deleteAllCards, sendNewCard }) => {
-  const taskRef = useRef();
-  const dayRef = useRef();
-  const timeRef = useRef();
 
-  const [taskState, setTaskState] = useState(null);
-  const [timeState, setTimeState] = useState(null);
+interface ICardProps {
+  name: string;
+  day: string;
+  time: string;
+  conflicts: string[];
+}
+
+interface IDashboard {
+  addHandler: (item: ICardProps) => void;
+  deleteAllCards: () => void;
+}
+
+const DashboardActions = ({ addHandler, deleteAllCards }: IDashboard) => {
+  const taskRef = useRef<HTMLInputElement>(null);
+  const dayRef = useRef<HTMLSelectElement>(null);
+  const timeRef = useRef<HTMLInputElement>(null);
+
+  const [taskState, setTaskState] = useState<null | boolean>(null);
+  const [timeState, setTimeState] = useState<null | boolean>(null);
 
   const descriptionHandler = () => {
-    taskRef.current.value.length === 0
-      ? setTaskState(false)
-      : setTaskState(true);
+    if (taskRef.current) {
+      taskRef.current.value.length === 0
+        ? setTaskState(false)
+        : setTaskState(true);
+    }
   };
 
   const timeHandler = () => {
-    timeRef.current.value.length === 0
-      ? setTimeState(false)
-      : setTimeState(true);
+    if (timeRef.current) {
+      timeRef.current.value.length === 0
+        ? setTimeState(false)
+        : setTimeState(true);
+    }
   };
 
   const submitHandler = () => {
-    const taskInfo = {
-      name: taskRef.current.value,
-      day: dayRef.current.value,
-      time: timeRef.current.value,
-      conflicts: [taskRef.current.value],
-    };
+    if (taskRef.current && dayRef.current && timeRef.current) {
+      const taskInfo = {
+        name: taskRef.current.value,
+        day: dayRef.current.value,
+        time: timeRef.current.value,
+        conflicts: [taskRef.current.value],
+      };
 
-    if (taskRef.current.value.length === 0) {
-      setTaskState(false);
-    }
+      if (taskRef.current.value.length === 0) {
+        setTaskState(false);
+      }
 
-    if (timeRef.current.value.length === 0) {
-      setTimeState(false);
-    }
+      if (timeRef.current.value.length === 0) {
+        setTimeState(false);
+      }
 
-    if (taskState && timeState) {
-      sendNewCard();
-      addHandler(taskInfo);
+      if (taskState && timeState) {
+        addHandler(taskInfo);
+      }
     }
   };
-
   const deleteCards = () => {
     deleteAllCards();
   };

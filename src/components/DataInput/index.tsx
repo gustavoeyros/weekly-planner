@@ -1,4 +1,15 @@
 import { InputStyle } from "./styled";
+
+interface IDataProps {
+  placeholder?: string;
+  type?: string;
+  enteredRef?: React.RefObject<HTMLInputElement>;
+  onChange?: () => void;
+  hasError?: boolean | null;
+  onFocus?: () => void;
+  submitCheck?: boolean | null;
+}
+
 const DataInput = ({
   placeholder,
   type,
@@ -7,16 +18,16 @@ const DataInput = ({
   hasError,
   onFocus,
   submitCheck,
-}) => {
+}: IDataProps) => {
   //date mask
-  const dateHandler = (e) => {
-    let v = e.target.value.replace(/\D/g, "");
+  const dateHandler = (e: React.FormEvent) => {
+    let v = (e.target as HTMLInputElement).value.replace(/\D/g, "");
 
     v = v.replace(/(\d{2})(\d)/, "$1/$2");
 
     v = v.replace(/(\d{2})(\d)/, "$1/$2");
 
-    e.target.value = v;
+    (e.target as HTMLInputElement).value = v;
   };
   return (
     <>
@@ -38,7 +49,7 @@ const DataInput = ({
           type="text"
           onInput={dateHandler}
           hasError={hasError}
-          maxLength="10"
+          maxLength={10}
           onChange={onChange}
           ref={enteredRef}
         />

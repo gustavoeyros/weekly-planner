@@ -1,5 +1,10 @@
 import { Label } from "./styled";
-const TextLabel = ({ text }) => {
+
+interface TextProps {
+  text: string;
+}
+
+const TextLabel = ({ text }: TextProps) => {
   return <Label>{text}</Label>;
 };
 

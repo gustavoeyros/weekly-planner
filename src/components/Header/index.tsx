@@ -13,6 +13,10 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/user-context";
 
+interface actionsContext {
+  onLogout: () => void;
+}
+
 const Header = () => {
   //realtime clock
   let hours = new Date().toLocaleTimeString([], {
@@ -33,15 +37,21 @@ const Header = () => {
     }, 1000);
   }, []);
 
-  const userCtx = useContext(UserContext);
+  const userCtx = useContext(UserContext) as actionsContext;
   const logoutHandler = () => {
     userCtx.onLogout();
   };
 
+  interface weatherResponse {
+    current: {
+      temp_c: number;
+    };
+  }
+
   //weather api
-  const [temperature, setTemperature] = useState(null);
+  const [temperature, setTemperature] = useState<weatherResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const userStorage = JSON.parse(localStorage.getItem("user"));
+  const userStorage = JSON.parse(localStorage.getItem("user") || "");
   const countryStorage = userStorage?.country;
   const cityStorage = userStorage?.city;
 

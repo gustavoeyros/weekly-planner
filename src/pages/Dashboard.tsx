@@ -7,13 +7,28 @@ import { useState } from "react";
 const Dashboard = () => {
   //add cards
 
-  const [task, setTask] = useState([]);
-  const [filteredTask, setFilteredTask] = useState([]);
+  interface IUser {
+    name: string;
+    day: string;
+    time: string;
+    conflicts: string[];
+    id: number;
+  }
+
+  const [task, setTask] = useState<IUser[]>([]);
+  const [filteredTask, setFilteredTask] = useState<IUser[]>([]);
 
   const [dayOfWeek, setDayOfWeek] = useState("monday");
 
-  const addCard = (item) => {
-    const conflict = [...task].findIndex((meet) => {
+  interface ICardProps {
+    name: string;
+    day: string;
+    time: string;
+    conflicts: string[];
+  }
+
+  const addCard = (item: ICardProps) => {
+    const conflict = [...task].findIndex((meet: ICardProps) => {
       return meet.day === item.day && meet.time === item.time;
     });
 
@@ -30,50 +45,49 @@ const Dashboard = () => {
     setTask(updatedTask);
   };
 
-  const dayHandler = (day) => {
+  interface IDay {
+    day: string;
+    time: string;
+  }
+
+  const dayHandler = (day: string) => {
     setFilteredTask(
       task
-        .filter((item) => item.day === day)
-        .sort((a, b) => a.time.localeCompare(b.time))
+        .filter((item: IDay) => item.day === day)
+        .sort((a: IDay, b: IDay) => a.time.localeCompare(b.time))
     );
   };
 
   //delete specific card
-  const deleteCard = (id) => {
-    const getOriginalID = id.split("_");
+  const deleteCard = (id: number, indexMeet: number) => {
     const prevTask = [...task];
     const searchConflictIndex = prevTask.findIndex((meet) => {
-      return meet.id == getOriginalID[0];
+      return meet.id == id;
     });
 
     if (prevTask[searchConflictIndex].conflicts.length === 1) {
       prevTask.splice(searchConflictIndex, 1);
     } else {
-      prevTask[searchConflictIndex].conflicts.splice(getOriginalID[1], 1);
+      prevTask[searchConflictIndex].conflicts.splice(indexMeet, 1);
     }
     setTask(prevTask);
   };
 
   //delete all cards
   const deleteAllCards = () => {
-    const newRemove = task.filter((item) => item.day !== dayOfWeek);
+    const newRemove = task.filter((item: IDay) => item.day !== dayOfWeek);
     setTask(newRemove);
   };
 
   return (
     <Background>
       <Header />
-      <DashboardActions
-        addHandler={addCard}
-        sendNewCard={dayHandler}
-        deleteAllCards={deleteAllCards}
-      />
+      <DashboardActions addHandler={addCard} deleteAllCards={deleteAllCards} />
       <Planner
         cardTask={task}
         deleteCard={deleteCard}
         dayHandler={dayHandler}
         filteredTask={filteredTask}
-        deleteAllCards={deleteAllCards}
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
       />
