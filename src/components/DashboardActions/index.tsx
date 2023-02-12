@@ -20,10 +20,10 @@ interface ICardProps {
 
 interface IDashboard {
   addHandler: (item: ICardProps) => void;
-  deleteAllCards: () => void;
+  modalVisibility: () => void;
 }
 
-const DashboardActions = ({ addHandler, deleteAllCards }: IDashboard) => {
+const DashboardActions = ({ addHandler, modalVisibility }: IDashboard) => {
   const taskRef = useRef<HTMLInputElement>(null);
   const dayRef = useRef<HTMLSelectElement>(null);
   const timeRef = useRef<HTMLInputElement>(null);
@@ -68,9 +68,6 @@ const DashboardActions = ({ addHandler, deleteAllCards }: IDashboard) => {
         addHandler(taskInfo);
       }
     }
-  };
-  const deleteCards = () => {
-    deleteAllCards();
   };
 
   return (
@@ -126,7 +123,7 @@ const DashboardActions = ({ addHandler, deleteAllCards }: IDashboard) => {
           <img src={addIcon} />
           Add to calendar
         </ButtonActionStyle>
-        <ButtonActionStyle btnType="delete" onClick={() => deleteCards()}>
+        <ButtonActionStyle btnType="delete" onClick={() => modalVisibility()}>
           <img src={removeIcon} /> Delete All
         </ButtonActionStyle>
       </ButtonsAction>

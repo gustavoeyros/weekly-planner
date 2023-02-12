@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
+import Modal from "../components/Modal";
 
 const Dashboard = () => {
   //add cards
@@ -17,6 +18,7 @@ const Dashboard = () => {
 
   const [task, setTask] = useState<IUser[]>([]);
   const [filteredTask, setFilteredTask] = useState<IUser[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const [dayOfWeek, setDayOfWeek] = useState("monday");
 
@@ -79,10 +81,26 @@ const Dashboard = () => {
     setTask(newRemove);
   };
 
+  const modalVisibility = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <Background>
+      {showModal ? (
+        <Modal
+          modalView={modalVisibility}
+          deleteAllCards={deleteAllCards}
+          dayRemove={dayOfWeek}
+        ></Modal>
+      ) : (
+        ""
+      )}
       <Header />
-      <DashboardActions addHandler={addCard} deleteAllCards={deleteAllCards} />
+      <DashboardActions
+        modalVisibility={modalVisibility}
+        addHandler={addCard}
+      />
       <Planner
         cardTask={task}
         deleteCard={deleteCard}
