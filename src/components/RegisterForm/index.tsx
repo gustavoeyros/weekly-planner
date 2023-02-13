@@ -230,7 +230,7 @@ const RegisterForm = () => {
       //setUserInput(inputData);
       // localStorage.setItem("user", JSON.stringify(inputData));
 
-      //navigate("/login");
+      navigate("/login");
     }
   };
   const loginPageHandler = () => {

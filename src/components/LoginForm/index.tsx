@@ -19,6 +19,7 @@ import { UserContext } from "../../store/user-context";
 const LoginForm = () => {
   interface actionsContext {
     onLogin: () => void;
+    onSignIn: (data: {}) => void;
   }
 
   const userCtx = useContext(UserContext) as actionsContext;
@@ -54,14 +55,20 @@ const LoginForm = () => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const userInfos = {
+      email: "testezinDoEmail@hotmail.com",
+      password: "12345678910",
+    };
+
+    userCtx.onSignIn(userInfos);
     if (
       (userRef.current?.value === nameStorage &&
         passwordRef.current?.value === passwordStorage) ||
       (userRef.current?.value === emailStorage &&
         passwordRef.current?.value === passwordStorage)
     ) {
-      navigate("/dashboard");
-      userCtx.onLogin();
+      /*  navigate("/dashboard");
+      userCtx.onLogin(); */
     } else {
       setHasError(true);
     }
