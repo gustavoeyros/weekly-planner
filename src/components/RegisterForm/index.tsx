@@ -27,9 +27,10 @@ const RegisterForm = () => {
 
   type UserContext = {
     setUserInput: (value: User) => void;
+    onSignUp: (data: {}) => void;
   };
 
-  const { setUserInput } = useContext(UserContext) as UserContext;
+  const { setUserInput, onSignUp } = useContext(UserContext) as UserContext;
 
   const [enteredFirstName, setEnteredFirstName] = useState<null | boolean>(
     null
@@ -181,6 +182,29 @@ const RegisterForm = () => {
 
     //submit
 
+    /*   const teste = {
+      firstName: firstNameRef.current?.value,
+      lastName: lastNameRef.current?.value,
+      birthDate: birthRef.current?.value,
+      country: countryRef.current?.value,
+      city: cityRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+      confirmPassword: confirmPasswordRef.current?.value,
+    }; */
+
+    /*   fetch(import.meta.env.VITE_APIBaseURL, {
+      method: "POST",
+      body: JSON.stringify(teste),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+ */
     if (
       enteredFirstName &&
       enteredLastName &&
@@ -192,9 +216,9 @@ const RegisterForm = () => {
       enteredConfirmPassword
     ) {
       const inputData = {
-        fullName:
-          firstNameRef.current?.value + " " + lastNameRef.current?.value,
-        birth: birthRef.current?.value,
+        firstName: firstNameRef.current?.value,
+        lastName: lastNameRef.current?.value,
+        birthDate: birthRef.current?.value,
         country: countryRef.current?.value,
         city: cityRef.current?.value,
         email: emailRef.current?.value,
@@ -202,10 +226,11 @@ const RegisterForm = () => {
         confirmPassword: confirmPasswordRef.current?.value,
       };
 
-      setUserInput(inputData);
-      localStorage.setItem("user", JSON.stringify(inputData));
+      onSignUp(inputData);
+      //setUserInput(inputData);
+      // localStorage.setItem("user", JSON.stringify(inputData));
 
-      navigate("/login");
+      //navigate("/login");
     }
   };
   const loginPageHandler = () => {

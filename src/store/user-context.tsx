@@ -33,6 +33,20 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setIsLogged(true);
   };
 
+  const signUpHandler = (data: {}) => {
+    fetch(`${import.meta.env.VITE_APIBaseURL}/users/sign-up`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     if (isLogged) {
       setIsLogged(true);
@@ -48,6 +62,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setIsLogged,
         onLogout: logoutHandler,
         onLogin: loginHandler,
+        onSignUp: signUpHandler,
       }}
     >
       {children}
