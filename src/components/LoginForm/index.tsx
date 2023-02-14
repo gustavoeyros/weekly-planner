@@ -20,6 +20,7 @@ const LoginForm = () => {
   interface actionsContext {
     onLogin: () => void;
     onSignIn: (data: {}) => void;
+    responseOk: boolean;
   }
 
   const userCtx = useContext(UserContext) as actionsContext;
@@ -28,17 +29,13 @@ const LoginForm = () => {
   const [userEmpty, setUserEmpty] = useState<boolean | null>(null);
   const [passwordEmpty, setPasswordEmpty] = useState<boolean | null>(null);
   const [hasError, setHasError] = useState<boolean | null>(null);
-  const userStorage = JSON.parse(localStorage.getItem("user") || "");
-  const emailStorage = userStorage?.email;
-  const nameStorage = userStorage?.fullName;
-  const passwordStorage = userStorage?.password;
 
   const userRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const loginHandler = () => {
     if (userRef.current) {
-      userRef.current.value.length !== 0
+      userRef.current.value.length !== 0 || userRef.current.value.includes("@")
         ? setUserEmpty(true)
         : setUserEmpty(false);
     }
@@ -56,21 +53,18 @@ const LoginForm = () => {
     e.preventDefault();
 
     const userInfos = {
-      email: "testezinDoEmail@hotmail.com",
-      password: "12345678910",
+      email: userRef.current?.value,
+      password: passwordRef.current?.value,
     };
 
     userCtx.onSignIn(userInfos);
-    if (
-      (userRef.current?.value === nameStorage &&
-        passwordRef.current?.value === passwordStorage) ||
-      (userRef.current?.value === emailStorage &&
-        passwordRef.current?.value === passwordStorage)
-    ) {
-      /*  navigate("/dashboard");
-      userCtx.onLogin(); */
+    if (userCtx.responseOk) {
+      //  navigate("/dashboard");
+      setHasError(false);
+      console.log("deu certo");
     } else {
       setHasError(true);
+      console.log("n deu certo");
     }
   };
   const registerPageHandler = () => {
@@ -87,8 +81,8 @@ const LoginForm = () => {
           <h2>Login</h2>
           <IconContainer empty={userEmpty}>
             <DataInput
-              placeholder="user name"
-              type="text"
+              placeholder="email.usuario@compass.com"
+              type="email"
               enteredRef={userRef}
               onChange={loginHandler}
               hasError={userEmpty}

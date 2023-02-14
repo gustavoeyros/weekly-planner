@@ -51,9 +51,10 @@ const Header = () => {
   //weather api
   const [temperature, setTemperature] = useState<weatherResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const userStorage = JSON.parse(localStorage.getItem("user") || "");
+  const userStorage = JSON.parse(localStorage.getItem("logged") || "");
   const countryStorage = userStorage?.country;
   const cityStorage = userStorage?.city;
+  console.log(userStorage);
 
   const FindTemperatureHandler = () => {
     fetch(

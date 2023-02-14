@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { PropsWithChildren } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = React.createContext({});
 
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     fullName: "",
     birth: "",
@@ -23,13 +25,15 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     localStorage.getItem("logged")
   );
 
+  const [responseOk, setIsResponseOk] = useState(false);
+
   const logoutHandler = () => {
     localStorage.removeItem("logged");
     setIsLogged(false);
   };
 
-  const loginHandler = () => {
-    localStorage.setItem("logged", "true");
+  const loginHandler = (token: string) => {
+    localStorage.setItem("logged", token);
     setIsLogged(true);
   };
 
@@ -47,6 +51,12 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       });
   };
 
+  interface IUserData {
+    token: string;
+    city: string;
+    country: string;
+  }
+
   const signInHandler = (data: {}) => {
     fetch(`${import.meta.env.VITE_APIBaseURL}/users/sign-in`, {
       method: "POST",
@@ -54,10 +64,27 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((res) => {
-        console.log(res);
+        if (res.ok) {
+          setIsResponseOk(true);
+          navigate("/dashboard");
+        }
+
+        console.log(responseOk);
+        return res.json();
       })
+      .then((data) => {
+        const userData: IUserData = {
+          token: data.token,
+          city: data.user.city,
+          country: data.user.country,
+        };
+
+        localStorage.setItem("logged", JSON.stringify(userData));
+        setIsLogged(true);
+      })
+
       .catch((error) => {
-        console.log(error);
+        setIsResponseOk(false);
       });
   };
 
@@ -78,6 +105,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         onLogin: loginHandler,
         onSignUp: signUpHandler,
         onSignIn: signInHandler,
+        responseOk: responseOk,
       }}
     >
       {children}
