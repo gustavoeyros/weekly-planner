@@ -27,7 +27,7 @@ export const ModalStyled = styled.div`
     text-align: center;
   }
   span {
-    color: red;
+    color: #27ae60;
     font-size: 50px;
     font-weight: 700;
   }
@@ -57,7 +57,6 @@ export const ModalStyled = styled.div`
 export const Actions = styled.div`
   display: flex;
   justify-content: space-between;
-  /*  width: 100%; */
   gap: 50px;
 `;
 

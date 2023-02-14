@@ -2,6 +2,7 @@ import RegisterForm from "../components/RegisterForm";
 import compassLogo from "../assets/compassLogo.svg";
 import { FormWrapper, ImageWrapper, GlobalWrapper } from "./styled";
 import ModalError from "../components/ModalError";
+import ModalSuccess from "../components/ModalSuccess";
 
 interface IRegisterProps {
   changeStateHandler: () => void;
@@ -20,12 +21,11 @@ const Register = ({
         <ModalError
           changeStateHandler={changeStateHandler}
           errorMessage={errorMessage}
-        >
-          EH OS GURIZAO
-        </ModalError>
+        />
       ) : (
         ""
       )}
+      {registerResponse === true ? <ModalSuccess /> : ""}
       <FormWrapper>
         <RegisterForm />
       </FormWrapper>

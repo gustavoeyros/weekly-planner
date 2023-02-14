@@ -25,7 +25,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     localStorage.getItem("logged")
   );
 
-  const [responseOk, setIsResponseOk] = useState(false);
+  const [responseOk, setIsResponseOk] = useState<boolean | null>(null);
   const [registerResponse, setRegisterResponse] = useState<boolean | null>(
     null
   );
@@ -49,10 +49,10 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     })
       .then((res) => {
         if (res.ok) {
-          setRegisterResponse(true);
-          navigate("/login");
+          setRegisterResponse(res.ok);
+          //  navigate("/login");
         } else {
-          setRegisterResponse(false);
+          setRegisterResponse(res.ok);
         }
         console.log(registerResponse);
         return res.json();

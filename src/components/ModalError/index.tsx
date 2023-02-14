@@ -1,16 +1,11 @@
 import { Backdrop, ModalStyled, Actions, ActionButton } from "./styled";
 import errorRequest from "../../assets/errorRequest.svg";
 interface IModalError {
-  children: React.ReactNode;
   changeStateHandler: () => void;
   errorMessage: string;
 }
 
-const ModalError = ({
-  children,
-  changeStateHandler,
-  errorMessage,
-}: IModalError) => {
+const ModalError = ({ changeStateHandler, errorMessage }: IModalError) => {
   return (
     <Backdrop>
       <ModalStyled>
