@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import DashboardActions from "../components/DashboardActions";
 import { Background } from "./styled";
 import { useState } from "react";
-import Modal from "../components/Modal";
+import Modal from "../components/ModalDeleteAll";
 
 const Dashboard = () => {
   //add cards

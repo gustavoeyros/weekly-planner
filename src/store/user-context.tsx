@@ -26,6 +26,10 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   );
 
   const [responseOk, setIsResponseOk] = useState(false);
+  const [registerResponse, setRegisterResponse] = useState<boolean | null>(
+    null
+  );
+  const [errorMessage, setErrorMessage] = useState("");
 
   const logoutHandler = () => {
     localStorage.removeItem("logged");
@@ -44,7 +48,17 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((res) => {
-        console.log(res);
+        if (res.ok) {
+          setRegisterResponse(true);
+          navigate("/login");
+        } else {
+          setRegisterResponse(false);
+        }
+        console.log(registerResponse);
+        return res.json();
+      })
+      .then((data) => {
+        setErrorMessage(data.errors[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -85,7 +99,14 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
       .catch((error) => {
         setIsResponseOk(false);
+        console.log(error);
       });
+  };
+
+  const changeStateHandler = () => {
+    setRegisterResponse(null);
+    console.log("Oi");
+    console.log(registerResponse);
   };
 
   useEffect(() => {
@@ -106,6 +127,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         onSignUp: signUpHandler,
         onSignIn: signInHandler,
         responseOk: responseOk,
+        registerResponse: registerResponse,
+        changeStateHandler,
+        errorMessage,
       }}
     >
       {children}

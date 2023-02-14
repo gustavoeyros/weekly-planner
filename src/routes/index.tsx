@@ -7,13 +7,26 @@ import { UserContext } from "../store/user-context";
 const RoutesManager = () => {
   type loggedContext = {
     isLogged: boolean;
+    changeStateHandler: () => void;
+    registerResponse: boolean | null;
+    errorMessage: string;
   };
 
-  const { isLogged } = useContext(UserContext) as loggedContext;
+  const { isLogged, changeStateHandler, registerResponse, errorMessage } =
+    useContext(UserContext) as loggedContext;
 
   return (
     <Routes>
-      <Route path="/register" element={<Register />} />
+      <Route
+        path="/register"
+        element={
+          <Register
+            errorMessage={errorMessage}
+            changeStateHandler={changeStateHandler}
+            registerResponse={registerResponse}
+          />
+        }
+      />
       <Route path="/login" element={<Login />} />
       <Route
         path="/dashboard"

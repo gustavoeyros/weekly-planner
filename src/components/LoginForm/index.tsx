@@ -59,7 +59,6 @@ const LoginForm = () => {
 
     userCtx.onSignIn(userInfos);
     if (userCtx.responseOk) {
-      //  navigate("/dashboard");
       setHasError(false);
       console.log("deu certo");
     } else {

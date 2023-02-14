@@ -30,7 +30,7 @@ const RegisterForm = () => {
     onSignUp: (data: {}) => void;
   };
 
-  const { setUserInput, onSignUp } = useContext(UserContext) as UserContext;
+  const { onSignUp } = useContext(UserContext) as UserContext;
 
   const [enteredFirstName, setEnteredFirstName] = useState<null | boolean>(
     null
@@ -182,29 +182,6 @@ const RegisterForm = () => {
 
     //submit
 
-    /*   const teste = {
-      firstName: firstNameRef.current?.value,
-      lastName: lastNameRef.current?.value,
-      birthDate: birthRef.current?.value,
-      country: countryRef.current?.value,
-      city: cityRef.current?.value,
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-      confirmPassword: confirmPasswordRef.current?.value,
-    }; */
-
-    /*   fetch(import.meta.env.VITE_APIBaseURL, {
-      method: "POST",
-      body: JSON.stringify(teste),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
- */
     if (
       enteredFirstName &&
       enteredLastName &&
@@ -215,10 +192,15 @@ const RegisterForm = () => {
       enteredPassword &&
       enteredConfirmPassword
     ) {
+      const birthInput = birthRef.current?.value.split("/");
+      const birthDateFormat = `${birthInput![2]}-${birthInput![1]}-${
+        birthInput![0]
+      }`;
+
       const inputData = {
         firstName: firstNameRef.current?.value,
         lastName: lastNameRef.current?.value,
-        birthDate: birthRef.current?.value,
+        birthDate: birthDateFormat,
         country: countryRef.current?.value,
         city: cityRef.current?.value,
         email: emailRef.current?.value,
@@ -227,10 +209,6 @@ const RegisterForm = () => {
       };
 
       onSignUp(inputData);
-      //setUserInput(inputData);
-      // localStorage.setItem("user", JSON.stringify(inputData));
-
-      navigate("/login");
     }
   };
   const loginPageHandler = () => {
