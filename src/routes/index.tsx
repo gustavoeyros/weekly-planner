@@ -39,7 +39,7 @@ const RoutesManager = () => {
           <Login
             errorMessage={errorMessage}
             changeStateHandler={changeStateHandler}
-            registerResponse={responseOk}
+            responseOk={responseOk}
           />
         }
       />

@@ -12,7 +12,7 @@ import {
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/user-context";
 
@@ -56,8 +56,6 @@ const LoginForm = () => {
       email: userRef.current?.value,
       password: passwordRef.current?.value,
     };
-
-    console.log(userInfos);
     userCtx.onSignIn(userInfos);
     if (userCtx.responseOk) {
       setHasError(false);

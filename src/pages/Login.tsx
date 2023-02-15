@@ -3,20 +3,20 @@ import compassLogo from "../assets/compassLogo.svg";
 import { FormWrapper, ImageWrapper, GlobalWrapper } from "./styled";
 import ModalError from "../components/ModalError";
 
-interface IRegisterProps {
+interface ILoginProps {
   changeStateHandler: () => void;
-  registerResponse: boolean | null;
+  responseOk: boolean | null;
   errorMessage: string;
 }
 
 const Login = ({
   changeStateHandler,
-  registerResponse,
+  responseOk,
   errorMessage,
-}: IRegisterProps) => {
+}: ILoginProps) => {
   return (
     <GlobalWrapper>
-      {registerResponse === false ? (
+      {responseOk === false ? (
         <ModalError
           changeStateHandler={changeStateHandler}
           errorMessage={errorMessage}
@@ -24,6 +24,7 @@ const Login = ({
       ) : (
         ""
       )}
+
       <FormWrapper>
         <LoginForm />
       </FormWrapper>

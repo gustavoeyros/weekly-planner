@@ -56,11 +56,15 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         } else {
           setRegisterResponse(res.ok);
         }
-        console.log(registerResponse);
+        console.log("res ok do registro:" + res.ok);
+        console.log("estado do registro: " + registerResponse);
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        if (typeof data === "string") {
+          setErrorMessage(data);
+        }
+        setErrorMessage(data.errors[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -83,32 +87,33 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       .then((res) => {
         if (res.ok) {
           setIsResponseOk(res.ok);
-          navigate("/dashboard");
         } else {
           setIsResponseOk(res.ok);
         }
-
-        console.log(responseOk);
         return res.json();
       })
       .then((data) => {
         if (typeof data === "string") {
           setErrorMessage(data);
         }
-        setErrorMessage(data.errors[0]);
-        const userData: IUserData = {
-          token: data.token,
-          city: data.user.city,
-          country: data.user.country,
-          id: data.user._id,
-        };
-
-        localStorage.setItem("logged", JSON.stringify(userData));
-        setIsLogged(true);
+        if (typeof data === "object") {
+          if (data.errors) {
+            setErrorMessage(data.errors[0]);
+          } else {
+            const userData: IUserData = {
+              token: data.token,
+              city: data.user.city,
+              country: data.user.country,
+              id: data.user._id,
+            };
+            setIsLogged(true);
+            localStorage.setItem("logged", JSON.stringify(userData));
+            navigate("/dashboard");
+          }
+        }
       })
 
       .catch((error) => {
-        setIsResponseOk(false);
         console.log(error);
       });
   };
