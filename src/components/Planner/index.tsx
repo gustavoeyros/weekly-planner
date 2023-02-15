@@ -31,7 +31,7 @@ interface IDataApi {
 }
 
 interface IPlanner {
-  filteredTask: IUser[];
+  filteredTask: IDataApi[];
   deleteCard: (id: number, indexMeet: number) => void;
   dayHandler: (day: string) => void;
   cardTask: IUser[];
@@ -53,13 +53,9 @@ const Planner = ({
 }: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
-  const onDeleteCard = (id: number, indexMeet: number) => {
-    deleteCard(id, indexMeet);
-  };
-
   useEffect(() => {
     dayHandler(dayOfWeek);
-  }, [cardTask]);
+  }, [dataApi]);
 
   return (
     <Wrapper>
@@ -166,40 +162,6 @@ const Planner = ({
                     </DeleteButton>
                   </DeleteContainer>
                 </Issues>
-              </IssuesContainer>
-            </TaskContainer>
-          );
-        })}
-
-        {filteredTask.map((item: IUser) => {
-          const checkConflictsStyle =
-            item.conflicts.length > 1 ? "conflict" : "";
-
-          const timeStyle = item.time.split(":");
-          return (
-            <TaskContainer
-              key={item.id}
-              //checkConflictsStyle={checkConflictsStyle}
-            >
-              <Time day={item.day} checkConflictsStyle={checkConflictsStyle}>
-                {`${timeStyle[0]}h${timeStyle[1]}m`}
-              </Time>
-
-              <IssuesContainer checkConflictsStyle={checkConflictsStyle}>
-                {item.conflicts.map((meet, indexMeet) => (
-                  <Issues key={`${item.id}_${indexMeet}`}>
-                    <IssuesColor
-                      day={item.day}
-                      checkConflictsStyle={checkConflictsStyle}
-                    />
-
-                    <span>{meet}</span>
-
-                    <DeleteContainer>
-                      <DeleteButton>Delete</DeleteButton>
-                    </DeleteContainer>
-                  </Issues>
-                ))}
               </IssuesContainer>
             </TaskContainer>
           );

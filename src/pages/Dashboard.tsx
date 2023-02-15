@@ -16,8 +16,15 @@ const Dashboard = () => {
     id: number;
   }
 
+  interface IDataApi {
+    description: string;
+    dayOfWeek: string;
+    createdAt: string;
+    _id: string;
+  }
+
   const [task, setTask] = useState<IUser[]>([]);
-  const [filteredTask, setFilteredTask] = useState<IUser[]>([]);
+  const [filteredTask, setFilteredTask] = useState<IDataApi[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState([]);
 
@@ -97,16 +104,33 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   };
 
+  const deleteAllEvents = (token: string, day: string) => {
+    fetch(`${import.meta.env.VITE_APIBaseURL}/events?dayOfWeek=${day}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   interface IDay {
-    day: string;
+    dayOfWeek: string;
     time: string;
   }
 
   const dayHandler = (day: string) => {
     setFilteredTask(
-      task
-        .filter((item: IDay) => item.day === day)
-        .sort((a: IDay, b: IDay) => a.time.localeCompare(b.time))
+      dataApi.filter((item: IDay) => item.dayOfWeek === day)
+      /*         .sort((a: IDay, b: IDay) => a.time.localeCompare(b.time)) */
     );
   };
 
@@ -127,8 +151,9 @@ const Dashboard = () => {
 
   //delete all cards
   const deleteAllCards = () => {
-    const newRemove = task.filter((item: IDay) => item.day !== dayOfWeek);
-    setTask(newRemove);
+    console.log("em manutenção");
+    /* const newRemove = task.filter((item: IDay) => item.dayOfWeek !== dayOfWeek);
+    setTask(newRemove); */
   };
 
   const modalVisibility = () => {
@@ -142,6 +167,7 @@ const Dashboard = () => {
           modalView={modalVisibility}
           deleteAllCards={deleteAllCards}
           dayRemove={dayOfWeek}
+          deleteAllEvents={deleteAllEvents}
         ></Modal>
       ) : (
         ""

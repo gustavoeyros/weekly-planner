@@ -6,12 +6,19 @@ interface IModal {
   modalView: () => void;
   deleteAllCards: () => void;
   dayRemove: string;
+  deleteAllEvents: (token: string, day: string) => void;
 }
 
-const Modal = ({ modalView, deleteAllCards, dayRemove }: IModal) => {
+const Modal = ({
+  modalView,
+  deleteAllCards,
+  dayRemove,
+  deleteAllEvents,
+}: IModal) => {
   const deleteAndRemove = () => {
+    const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
     modalView();
-    deleteAllCards();
+    deleteAllEvents(tokenStorage.token, dayRemove);
   };
 
   return (
