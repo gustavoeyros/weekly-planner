@@ -50,7 +50,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       .then((res) => {
         if (res.ok) {
           setRegisterResponse(res.ok);
-          //  navigate("/login");
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         } else {
           setRegisterResponse(res.ok);
         }
@@ -58,7 +60,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         return res.json();
       })
       .then((data) => {
-        setErrorMessage(data.errors[0]);
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -69,6 +71,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     token: string;
     city: string;
     country: string;
+    id: string;
   }
 
   const signInHandler = (data: {}) => {
@@ -79,18 +82,25 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     })
       .then((res) => {
         if (res.ok) {
-          setIsResponseOk(true);
+          setIsResponseOk(res.ok);
           navigate("/dashboard");
+        } else {
+          setIsResponseOk(res.ok);
         }
 
         console.log(responseOk);
         return res.json();
       })
       .then((data) => {
+        if (typeof data === "string") {
+          setErrorMessage(data);
+        }
+        setErrorMessage(data.errors[0]);
         const userData: IUserData = {
           token: data.token,
           city: data.user.city,
           country: data.user.country,
+          id: data.user._id,
         };
 
         localStorage.setItem("logged", JSON.stringify(userData));
@@ -105,8 +115,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const changeStateHandler = () => {
     setRegisterResponse(null);
-    console.log("Oi");
-    console.log(registerResponse);
+    setIsResponseOk(null);
   };
 
   useEffect(() => {

@@ -10,10 +10,16 @@ const RoutesManager = () => {
     changeStateHandler: () => void;
     registerResponse: boolean | null;
     errorMessage: string;
+    responseOk: boolean | null;
   };
 
-  const { isLogged, changeStateHandler, registerResponse, errorMessage } =
-    useContext(UserContext) as loggedContext;
+  const {
+    isLogged,
+    changeStateHandler,
+    registerResponse,
+    errorMessage,
+    responseOk,
+  } = useContext(UserContext) as loggedContext;
 
   return (
     <Routes>
@@ -27,7 +33,16 @@ const RoutesManager = () => {
           />
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={
+          <Login
+            errorMessage={errorMessage}
+            changeStateHandler={changeStateHandler}
+            registerResponse={responseOk}
+          />
+        }
+      />
       <Route
         path="/dashboard"
         element={!isLogged ? <Navigate to="/register" /> : <Dashboard />}

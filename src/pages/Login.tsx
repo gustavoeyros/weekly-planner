@@ -1,9 +1,29 @@
 import LoginForm from "../components/LoginForm";
 import compassLogo from "../assets/compassLogo.svg";
 import { FormWrapper, ImageWrapper, GlobalWrapper } from "./styled";
-const Register = () => {
+import ModalError from "../components/ModalError";
+
+interface IRegisterProps {
+  changeStateHandler: () => void;
+  registerResponse: boolean | null;
+  errorMessage: string;
+}
+
+const Login = ({
+  changeStateHandler,
+  registerResponse,
+  errorMessage,
+}: IRegisterProps) => {
   return (
     <GlobalWrapper>
+      {registerResponse === false ? (
+        <ModalError
+          changeStateHandler={changeStateHandler}
+          errorMessage={errorMessage}
+        />
+      ) : (
+        ""
+      )}
       <FormWrapper>
         <LoginForm />
       </FormWrapper>
@@ -16,4 +36,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

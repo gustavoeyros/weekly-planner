@@ -57,13 +57,12 @@ const LoginForm = () => {
       password: passwordRef.current?.value,
     };
 
+    console.log(userInfos);
     userCtx.onSignIn(userInfos);
     if (userCtx.responseOk) {
       setHasError(false);
-      console.log("deu certo");
     } else {
       setHasError(true);
-      console.log("n deu certo");
     }
   };
   const registerPageHandler = () => {
