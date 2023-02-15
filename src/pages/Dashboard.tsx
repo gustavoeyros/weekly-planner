@@ -79,6 +79,24 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   };
 
+  const deleteSpecificEvent = (token: string, id: string) => {
+    fetch(`${import.meta.env.VITE_APIBaseURL}/events/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   interface IDay {
     day: string;
     time: string;
@@ -143,6 +161,7 @@ const Dashboard = () => {
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
         dataApi={dataApi}
+        deleteSpecificEvent={deleteSpecificEvent}
       />
     </Background>
   );

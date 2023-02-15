@@ -27,6 +27,7 @@ interface IDataApi {
   description: string;
   dayOfWeek: string;
   createdAt: string;
+  _id: string;
 }
 
 interface IPlanner {
@@ -37,6 +38,7 @@ interface IPlanner {
   dayOfWeek: string;
   setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
   dataApi: IDataApi[];
+  deleteSpecificEvent: (token: string, id: string) => void;
 }
 
 const Planner = ({
@@ -47,6 +49,7 @@ const Planner = ({
   dayOfWeek,
   setDayOfWeek,
   dataApi,
+  deleteSpecificEvent,
 }: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
@@ -139,18 +142,28 @@ const Planner = ({
         </TimeStartContainer>
 
         {dataApi.map((item) => {
-          const timeFormat = item.createdAt.split("T");
-          const finalFormat = timeFormat[1].split(".");
-          console.log(finalFormat[0]);
+          const getTimeOfAPI = item.createdAt.split("T");
+          const timeFormat = getTimeOfAPI[1].split(".");
+          const timeEvent = timeFormat[0].split(":");
+          const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
+
           return (
             <TaskContainer>
-              <Time>{finalFormat[0]}</Time>
+              <Time day={item.dayOfWeek}>
+                {timeEvent[0]}h{timeEvent[1]}m
+              </Time>
               <IssuesContainer>
                 <Issues>
                   <IssuesColor day={item.dayOfWeek} />
                   <span>{item.description}</span>
                   <DeleteContainer>
-                    <DeleteButton>Delete</DeleteButton>
+                    <DeleteButton
+                      onClick={() =>
+                        deleteSpecificEvent(tokenStorage.token, item._id)
+                      }
+                    >
+                      Delete
+                    </DeleteButton>
                   </DeleteContainer>
                 </Issues>
               </IssuesContainer>
@@ -183,11 +196,7 @@ const Planner = ({
                     <span>{meet}</span>
 
                     <DeleteContainer>
-                      <DeleteButton
-                        onClick={() => onDeleteCard(item.id, indexMeet)}
-                      >
-                        Delete
-                      </DeleteButton>
+                      <DeleteButton>Delete</DeleteButton>
                     </DeleteContainer>
                   </Issues>
                 ))}
