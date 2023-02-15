@@ -21,9 +21,16 @@ interface ICardProps {
 interface IDashboard {
   addHandler: (item: ICardProps) => void;
   modalVisibility: () => void;
+  createEvent: (data: {}, token: string) => void;
+  getEvents: (token: string) => void;
 }
 
-const DashboardActions = ({ addHandler, modalVisibility }: IDashboard) => {
+const DashboardActions = ({
+  addHandler,
+  modalVisibility,
+  createEvent,
+  getEvents,
+}: IDashboard) => {
   const taskRef = useRef<HTMLInputElement>(null);
   const dayRef = useRef<HTMLSelectElement>(null);
   const timeRef = useRef<HTMLInputElement>(null);
@@ -50,10 +57,8 @@ const DashboardActions = ({ addHandler, modalVisibility }: IDashboard) => {
   const submitHandler = () => {
     if (taskRef.current && dayRef.current && timeRef.current) {
       const taskInfo = {
-        name: taskRef.current.value,
-        day: dayRef.current.value,
-        time: timeRef.current.value,
-        conflicts: [taskRef.current.value],
+        description: taskRef.current.value,
+        dayOfWeek: dayRef.current.value,
       };
 
       if (taskRef.current.value.length === 0) {
@@ -64,8 +69,11 @@ const DashboardActions = ({ addHandler, modalVisibility }: IDashboard) => {
         setTimeState(false);
       }
 
+      const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
+
       if (taskState && timeState) {
-        addHandler(taskInfo);
+        createEvent(taskInfo, tokenStorage.token);
+        getEvents(tokenStorage.token);
       }
     }
   };

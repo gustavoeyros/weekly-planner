@@ -23,6 +23,12 @@ interface IUser {
   id: number;
 }
 
+interface IDataApi {
+  description: string;
+  dayOfWeek: string;
+  createdAt: string;
+}
+
 interface IPlanner {
   filteredTask: IUser[];
   deleteCard: (id: number, indexMeet: number) => void;
@@ -30,6 +36,7 @@ interface IPlanner {
   cardTask: IUser[];
   dayOfWeek: string;
   setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
+  dataApi: IDataApi[];
 }
 
 const Planner = ({
@@ -39,6 +46,7 @@ const Planner = ({
   cardTask,
   dayOfWeek,
   setDayOfWeek,
+  dataApi,
 }: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
@@ -124,10 +132,31 @@ const Planner = ({
           Sunday
         </DayOfWeek>
       </DaysWeek>
+
       <TimeContainer>
         <TimeStartContainer>
           <Time>Time</Time>
         </TimeStartContainer>
+
+        {dataApi.map((item) => {
+          const timeFormat = item.createdAt.split("T");
+          const finalFormat = timeFormat[1].split(".");
+          console.log(finalFormat[0]);
+          return (
+            <TaskContainer>
+              <Time>{finalFormat[0]}</Time>
+              <IssuesContainer>
+                <Issues>
+                  <IssuesColor day={item.dayOfWeek} />
+                  <span>{item.description}</span>
+                  <DeleteContainer>
+                    <DeleteButton>Delete</DeleteButton>
+                  </DeleteContainer>
+                </Issues>
+              </IssuesContainer>
+            </TaskContainer>
+          );
+        })}
 
         {filteredTask.map((item: IUser) => {
           const checkConflictsStyle =

@@ -19,6 +19,7 @@ const Dashboard = () => {
   const [task, setTask] = useState<IUser[]>([]);
   const [filteredTask, setFilteredTask] = useState<IUser[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [dataApi, setDataApi] = useState([]);
 
   const [dayOfWeek, setDayOfWeek] = useState("monday");
 
@@ -45,6 +46,37 @@ const Dashboard = () => {
     }
 
     setTask(updatedTask);
+  };
+
+  const createEvent = (data: {}, token: string) => {
+    fetch(`${import.meta.env.VITE_APIBaseURL}/events`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
+  const getEvents = (token: string) => {
+    fetch(`${import.meta.env.VITE_APIBaseURL}/events`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data.events);
+        setDataApi(data.events);
+      })
+      .catch((error) => console.log(error));
   };
 
   interface IDay {
@@ -100,6 +132,8 @@ const Dashboard = () => {
       <DashboardActions
         modalVisibility={modalVisibility}
         addHandler={addCard}
+        createEvent={createEvent}
+        getEvents={getEvents}
       />
       <Planner
         cardTask={task}
@@ -108,6 +142,7 @@ const Dashboard = () => {
         filteredTask={filteredTask}
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
+        dataApi={dataApi}
       />
     </Background>
   );

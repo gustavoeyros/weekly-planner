@@ -54,7 +54,6 @@ const Header = () => {
   const userStorage = JSON.parse(localStorage.getItem("logged") || "");
   const countryStorage = userStorage?.country;
   const cityStorage = userStorage?.city;
-  console.log(userStorage);
 
   const FindTemperatureHandler = () => {
     fetch(
