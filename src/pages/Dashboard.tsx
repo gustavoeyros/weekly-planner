@@ -16,44 +16,62 @@ const Dashboard = () => {
     id: number;
   }
 
-  interface IDataApi {
+  type IAPIObject = {
+    id: string;
     description: string;
+  };
+
+  interface IDataApi {
     dayOfWeek: string;
     createdAt: string;
     _id: string;
+    conflicts: IAPIObject[];
+    description: string;
+  }
+
+  interface IPrevEvent {
+    dayOfWeek: string;
+    createdAt: string;
+    _id: string;
+    conflicts: IAPIObject[];
   }
 
   const [task, setTask] = useState<IUser[]>([]);
   const [filteredTask, setFilteredTask] = useState<IDataApi[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [dataApi, setDataApi] = useState([]);
+  const [dataApi, setDataApi] = useState<IPrevEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  // const [prevEvent, setIsPrevEvent] = useState<IPrevEvent[]>([]);
   const [dayOfWeek, setDayOfWeek] = useState("monday");
 
-  interface ICardProps {
-    name: string;
-    day: string;
-    time: string;
-    conflicts: string[];
-  }
+  const prevEvent: IPrevEvent[] = [];
 
-  const addCard = (item: ICardProps) => {
-    const conflict = [...task].findIndex((meet: ICardProps) => {
-      return meet.day === item.day && meet.time === item.time;
+  const addCard = (item: IDataApi) => {
+    const conflict = prevEvent.findIndex((meet) => {
+      return (
+        meet.dayOfWeek === item.dayOfWeek && meet.createdAt === item.createdAt
+      );
     });
 
-    const updatedTask = [...task];
     if (conflict >= 0) {
-      updatedTask[conflict].conflicts.push(item.name);
+      prevEvent[conflict].conflicts.push({
+        id: item._id,
+        description: item.description,
+      });
     } else {
-      updatedTask.push({
-        id: updatedTask.length + 1,
-        ...item,
+      prevEvent.push({
+        _id: item._id,
+        dayOfWeek: item.dayOfWeek,
+        createdAt: item.createdAt,
+        conflicts: [
+          {
+            id: item._id,
+            description: item.description,
+          },
+        ],
       });
     }
-
-    setTask(updatedTask);
+    setDataApi(prevEvent);
   };
 
   interface ICreateEvent {
@@ -69,9 +87,14 @@ const Dashboard = () => {
         "Content-type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => {
-      dayHandler(dayOfWeek, token);
-    });
+    })
+      .then((res) => {
+        dayHandler(dayOfWeek, token);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   const getEvents = (token: string) => {
@@ -87,7 +110,7 @@ const Dashboard = () => {
       })
       .then((data) => {
         console.log(data.events);
-        setDataApi(data.events);
+        addCard(data.events);
       })
       .catch((error) => console.log(error));
   };
@@ -119,8 +142,8 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        console.log(res);
-        return res;
+        dayHandler(dayOfWeek, token);
+        return res.json();
       })
       .then((data) => {
         console.log(data);
@@ -149,7 +172,7 @@ const Dashboard = () => {
         return res.json();
       })
       .then((data) => {
-        setDataApi(data.events);
+        addCard(data.events);
       })
       .catch((error) => console.log(error));
   };
@@ -195,7 +218,6 @@ const Dashboard = () => {
       <Header />
       <DashboardActions
         modalVisibility={modalVisibility}
-        addHandler={addCard}
         createEvent={createEvent}
         getEvents={getEvents}
         dayHandler={dayHandler}

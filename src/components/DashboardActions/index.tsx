@@ -23,7 +23,6 @@ interface ICreateEvent {
 }
 
 interface IDashboard {
-  addHandler: (item: ICardProps) => void;
   modalVisibility: () => void;
   createEvent: (data: ICreateEvent, token: string) => void;
   getEvents: (token: string) => void;
@@ -31,7 +30,6 @@ interface IDashboard {
 }
 
 const DashboardActions = ({
-  addHandler,
   modalVisibility,
   createEvent,
   getEvents,

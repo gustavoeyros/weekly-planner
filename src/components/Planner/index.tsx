@@ -22,12 +22,16 @@ interface IUser {
   conflicts: string[];
   id: number;
 }
+type IAPIObject = {
+  id: string;
+  description: string;
+};
 
 interface IDataApi {
-  description: string;
   dayOfWeek: string;
   createdAt: string;
   _id: string;
+  conflicts: IAPIObject[];
 }
 
 interface IPlanner {
@@ -145,32 +149,35 @@ const Planner = ({
           <p>Loading...</p>
         ) : (
           dataApi.map((item) => {
-            const getTimeOfAPI = item.createdAt.split("T");
+            /*     const getTimeOfAPI = item.createdAt.split("T");
             const timeFormat = getTimeOfAPI[1].split(".");
             const timeEvent = timeFormat[0].split(":");
             const tokenStorage = JSON.parse(
               localStorage.getItem("logged") || ""
-            );
+            ); */
 
             return (
               <TaskContainer>
                 <Time day={item.dayOfWeek}>
-                  {timeEvent[0]}h{timeEvent[1]}m
+                  {/*  {timeEvent[0]}h{timeEvent[1]}m */}
+                  12h
                 </Time>
                 <IssuesContainer>
-                  <Issues>
-                    <IssuesColor day={item.dayOfWeek} />
-                    <span>{item.description}</span>
-                    <DeleteContainer>
-                      <DeleteButton
-                        onClick={() =>
-                          deleteSpecificEvent(tokenStorage.token, item._id)
-                        }
-                      >
-                        Delete
-                      </DeleteButton>
-                    </DeleteContainer>
-                  </Issues>
+                  {item.conflicts.map((data) => (
+                    <Issues key={data.id}>
+                      <IssuesColor day={item.dayOfWeek} />
+                      <span>{data.description}</span>
+                      <DeleteContainer>
+                        <DeleteButton
+                          onClick={() =>
+                            deleteSpecificEvent(tokenStorage.token, item._id)
+                          }
+                        >
+                          Delete
+                        </DeleteButton>
+                      </DeleteContainer>
+                    </Issues>
+                  ))}
                 </IssuesContainer>
               </TaskContainer>
             );
