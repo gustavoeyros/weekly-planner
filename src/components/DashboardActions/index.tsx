@@ -17,12 +17,17 @@ interface ICardProps {
   time: string;
   conflicts: string[];
 }
+interface ICreateEvent {
+  description: string;
+  dayOfWeek: string;
+}
 
 interface IDashboard {
   addHandler: (item: ICardProps) => void;
   modalVisibility: () => void;
-  createEvent: (data: {}, token: string) => void;
+  createEvent: (data: ICreateEvent, token: string) => void;
   getEvents: (token: string) => void;
+  dayHandler: (day: string, token: string) => void;
 }
 
 const DashboardActions = ({
@@ -30,13 +35,12 @@ const DashboardActions = ({
   modalVisibility,
   createEvent,
   getEvents,
+  dayHandler,
 }: IDashboard) => {
   const taskRef = useRef<HTMLInputElement>(null);
   const dayRef = useRef<HTMLSelectElement>(null);
-  const timeRef = useRef<HTMLInputElement>(null);
 
   const [taskState, setTaskState] = useState<null | boolean>(null);
-  const [timeState, setTimeState] = useState<null | boolean>(null);
 
   const descriptionHandler = () => {
     if (taskRef.current) {
@@ -46,17 +50,9 @@ const DashboardActions = ({
     }
   };
 
-  const timeHandler = () => {
-    if (timeRef.current) {
-      timeRef.current.value.length === 0
-        ? setTimeState(false)
-        : setTimeState(true);
-    }
-  };
-
   const submitHandler = () => {
-    if (taskRef.current && dayRef.current && timeRef.current) {
-      const taskInfo = {
+    if (taskRef.current && dayRef.current) {
+      const taskInfo: ICreateEvent = {
         description: taskRef.current.value,
         dayOfWeek: dayRef.current.value,
       };
@@ -65,15 +61,10 @@ const DashboardActions = ({
         setTaskState(false);
       }
 
-      if (timeRef.current.value.length === 0) {
-        setTimeState(false);
-      }
-
       const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
 
-      if (taskState && timeState) {
+      if (taskState) {
         createEvent(taskInfo, tokenStorage.token);
-        getEvents(tokenStorage.token);
       }
     }
   };
@@ -117,13 +108,6 @@ const DashboardActions = ({
             Sunday
           </option>
         </DaySelect>
-
-        <TimeInput
-          type="time"
-          ref={timeRef}
-          onChange={timeHandler}
-          error={timeState}
-        />
       </InputActions>
 
       <ButtonsAction>

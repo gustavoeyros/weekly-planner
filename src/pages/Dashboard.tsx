@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [filteredTask, setFilteredTask] = useState<IDataApi[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [dayOfWeek, setDayOfWeek] = useState("monday");
 
@@ -55,7 +56,12 @@ const Dashboard = () => {
     setTask(updatedTask);
   };
 
-  const createEvent = (data: {}, token: string) => {
+  interface ICreateEvent {
+    description: string;
+    dayOfWeek: string;
+  }
+
+  const createEvent = (data: ICreateEvent, token: string) => {
     fetch(`${import.meta.env.VITE_APIBaseURL}/events`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -64,7 +70,7 @@ const Dashboard = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log(res);
+      dayHandler(dayOfWeek, token);
     });
   };
 
@@ -95,7 +101,7 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        dayHandler(dayOfWeek, token);
         return res;
       })
       .then((data) => {
@@ -127,11 +133,25 @@ const Dashboard = () => {
     time: string;
   }
 
-  const dayHandler = (day: string) => {
-    setFilteredTask(
-      dataApi.filter((item: IDay) => item.dayOfWeek === day)
-      /*         .sort((a: IDay, b: IDay) => a.time.localeCompare(b.time)) */
-    );
+  const dayHandler = (day: string, token: string) => {
+    console.log(day);
+    fetch(`${import.meta.env.VITE_APIBaseURL}/events?dayOfWeek=${day}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setIsLoading(false);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setDataApi(data.events);
+      })
+      .catch((error) => console.log(error));
   };
 
   //delete specific card
@@ -178,6 +198,7 @@ const Dashboard = () => {
         addHandler={addCard}
         createEvent={createEvent}
         getEvents={getEvents}
+        dayHandler={dayHandler}
       />
       <Planner
         cardTask={task}
@@ -188,6 +209,7 @@ const Dashboard = () => {
         setDayOfWeek={setDayOfWeek}
         dataApi={dataApi}
         deleteSpecificEvent={deleteSpecificEvent}
+        isLoading={isLoading}
       />
     </Background>
   );

@@ -33,12 +33,13 @@ interface IDataApi {
 interface IPlanner {
   filteredTask: IDataApi[];
   deleteCard: (id: number, indexMeet: number) => void;
-  dayHandler: (day: string) => void;
+  dayHandler: (token: string, day: string) => void;
   cardTask: IUser[];
   dayOfWeek: string;
   setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
   dataApi: IDataApi[];
   deleteSpecificEvent: (token: string, id: string) => void;
+  isLoading: boolean;
 }
 
 const Planner = ({
@@ -50,12 +51,15 @@ const Planner = ({
   setDayOfWeek,
   dataApi,
   deleteSpecificEvent,
+  isLoading,
 }: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
+  const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
+
   useEffect(() => {
-    dayHandler(dayOfWeek);
-  }, [dataApi]);
+    dayHandler(dayOfWeek, tokenStorage.token);
+  }, []);
 
   return (
     <Wrapper>
@@ -64,7 +68,7 @@ const Planner = ({
           day="monday"
           onClick={() => {
             setDayOfWeek("monday");
-            dayHandler("monday");
+            dayHandler("monday", tokenStorage.token);
             setClickEffect(1);
           }}
         >
@@ -74,7 +78,7 @@ const Planner = ({
           day="tuesday"
           onClick={() => {
             setDayOfWeek("tuesday");
-            dayHandler("tuesday");
+            dayHandler("tuesday", tokenStorage.token);
             setClickEffect(2);
           }}
         >
@@ -84,7 +88,7 @@ const Planner = ({
           day="wednesday"
           onClick={() => {
             setDayOfWeek("wednesday");
-            dayHandler("wednesday");
+            dayHandler("wednesday", tokenStorage.token);
             setClickEffect(3);
           }}
         >
@@ -94,7 +98,7 @@ const Planner = ({
           day="thursday"
           onClick={() => {
             setDayOfWeek("thursday");
-            dayHandler("thursday");
+            dayHandler("thursday", tokenStorage.token);
             setClickEffect(4);
           }}
         >
@@ -104,7 +108,7 @@ const Planner = ({
           day="friday"
           onClick={() => {
             setDayOfWeek("friday");
-            dayHandler("friday");
+            dayHandler("friday", tokenStorage.token);
             setClickEffect(5);
           }}
         >
@@ -114,7 +118,7 @@ const Planner = ({
           day="saturday"
           onClick={() => {
             setDayOfWeek("saturday");
-            dayHandler("saturday");
+            dayHandler("saturday", tokenStorage.token);
             setClickEffect(6);
           }}
         >
@@ -124,7 +128,7 @@ const Planner = ({
           day="sunday"
           onClick={() => {
             setDayOfWeek("sunday");
-            dayHandler("sunday");
+            dayHandler("sunday", tokenStorage.token);
             setClickEffect(7);
           }}
         >
@@ -137,35 +141,41 @@ const Planner = ({
           <Time>Time</Time>
         </TimeStartContainer>
 
-        {dataApi.map((item) => {
-          const getTimeOfAPI = item.createdAt.split("T");
-          const timeFormat = getTimeOfAPI[1].split(".");
-          const timeEvent = timeFormat[0].split(":");
-          const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          dataApi.map((item) => {
+            const getTimeOfAPI = item.createdAt.split("T");
+            const timeFormat = getTimeOfAPI[1].split(".");
+            const timeEvent = timeFormat[0].split(":");
+            const tokenStorage = JSON.parse(
+              localStorage.getItem("logged") || ""
+            );
 
-          return (
-            <TaskContainer>
-              <Time day={item.dayOfWeek}>
-                {timeEvent[0]}h{timeEvent[1]}m
-              </Time>
-              <IssuesContainer>
-                <Issues>
-                  <IssuesColor day={item.dayOfWeek} />
-                  <span>{item.description}</span>
-                  <DeleteContainer>
-                    <DeleteButton
-                      onClick={() =>
-                        deleteSpecificEvent(tokenStorage.token, item._id)
-                      }
-                    >
-                      Delete
-                    </DeleteButton>
-                  </DeleteContainer>
-                </Issues>
-              </IssuesContainer>
-            </TaskContainer>
-          );
-        })}
+            return (
+              <TaskContainer>
+                <Time day={item.dayOfWeek}>
+                  {timeEvent[0]}h{timeEvent[1]}m
+                </Time>
+                <IssuesContainer>
+                  <Issues>
+                    <IssuesColor day={item.dayOfWeek} />
+                    <span>{item.description}</span>
+                    <DeleteContainer>
+                      <DeleteButton
+                        onClick={() =>
+                          deleteSpecificEvent(tokenStorage.token, item._id)
+                        }
+                      >
+                        Delete
+                      </DeleteButton>
+                    </DeleteContainer>
+                  </Issues>
+                </IssuesContainer>
+              </TaskContainer>
+            );
+          })
+        )}
       </TimeContainer>
     </Wrapper>
   );
