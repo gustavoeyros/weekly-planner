@@ -30,6 +30,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     null
   );
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [hasError, setHasError] = useState<boolean | null>(null);
 
   const logoutHandler = () => {
     localStorage.removeItem("logged");
@@ -79,12 +82,14 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }
 
   const signInHandler = (data: {}) => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_APIBaseURL}/users/sign-in`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((res) => {
+        setIsLoading(false);
         if (res.ok) {
           setIsResponseOk(res.ok);
         } else {
@@ -95,11 +100,14 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       .then((data) => {
         if (typeof data === "string") {
           setErrorMessage(data);
+          setHasError(true);
         }
         if (typeof data === "object") {
           if (data.errors) {
             setErrorMessage(data.errors[0]);
+            setHasError(true);
           } else {
+            setHasError(false);
             const userData: IUserData = {
               token: data.token,
               city: data.user.city,
@@ -144,6 +152,8 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         registerResponse: registerResponse,
         changeStateHandler,
         errorMessage,
+        isLoading,
+        hasError,
       }}
     >
       {children}

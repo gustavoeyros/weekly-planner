@@ -36,6 +36,23 @@ export const ModalStyled = styled.div`
   & img {
     width: 100px;
   }
+
+  animation: openModal 1s ease-out forwards;
+
+  @keyframes openModal {
+    0% {
+      opacity: 0;
+      transform: translateY(-120%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(20%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const Actions = styled.div`

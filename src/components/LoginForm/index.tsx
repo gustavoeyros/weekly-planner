@@ -21,6 +21,8 @@ const LoginForm = () => {
     onLogin: () => void;
     onSignIn: (data: {}) => void;
     responseOk: boolean;
+    isLoading: boolean;
+    hasError: boolean;
   }
 
   const userCtx = useContext(UserContext) as actionsContext;
@@ -28,7 +30,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [userEmpty, setUserEmpty] = useState<boolean | null>(null);
   const [passwordEmpty, setPasswordEmpty] = useState<boolean | null>(null);
-  const [hasError, setHasError] = useState<boolean | null>(null);
 
   const userRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -51,17 +52,18 @@ const LoginForm = () => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log(userCtx.isLoading);
     const userInfos = {
       email: userRef.current?.value,
       password: passwordRef.current?.value,
     };
     userCtx.onSignIn(userInfos);
-    if (userCtx.responseOk) {
-      setHasError(false);
-    } else {
-      setHasError(true);
-    }
+    /*    if (userCtx.isLoading === false) {
+      if (userCtx.responseOk) {
+        setHasError(false);
+      }
+      if (!userCtx.responseOk) setHasError(true);
+    } */
   };
   const registerPageHandler = () => {
     navigate("/register");
@@ -73,7 +75,7 @@ const LoginForm = () => {
         <Title subtitle="To continue browsing safely, log in to the network." />
       </TitleContainer>
       <form onSubmit={submitHandler}>
-        <LoginWrapper hasError={hasError}>
+        <LoginWrapper hasError={userCtx.hasError}>
           <h2>Login</h2>
           <IconContainer empty={userEmpty}>
             <DataInput
@@ -82,7 +84,7 @@ const LoginForm = () => {
               enteredRef={userRef}
               onChange={loginHandler}
               hasError={userEmpty}
-              submitCheck={hasError}
+              submitCheck={userCtx.hasError}
             />
             <Icon iconFor={"username"} />
           </IconContainer>
@@ -93,11 +95,11 @@ const LoginForm = () => {
               enteredRef={passwordRef}
               onChange={passwordHandler}
               hasError={passwordEmpty}
-              submitCheck={hasError}
+              submitCheck={userCtx.hasError}
             />
             <Icon iconFor={"password"} />
           </IconContainer>
-          {hasError === true && (
+          {userCtx.hasError === true && (
             <Error>
               <span>Wow, invalid username or password. Please, try again!</span>
             </Error>
