@@ -40,10 +40,10 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState<IPrevEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [prevEvent, setIsPrevEvent] = useState<IPrevEvent[]>([]);
   const [dayOfWeek, setDayOfWeek] = useState("monday");
+  const [taskNotFound, setTaskNotFound] = useState(false);
 
-  const prevEvent: IPrevEvent[] = [];
+  let prevEvent: IPrevEvent[] = [];
 
   const addCard = (item: IDataApi) => {
     const conflict = prevEvent.findIndex((meet) => {
@@ -71,6 +71,11 @@ const Dashboard = () => {
       });
     }
     setDataApi(prevEvent);
+  };
+
+  const refreshData = () => {
+    setDataApi([]);
+    prevEvent = [];
   };
 
   interface ICreateEvent {
@@ -170,6 +175,12 @@ const Dashboard = () => {
         return res.json();
       })
       .then((data) => {
+        if (data.events.length === 0) {
+          setTaskNotFound(true);
+          refreshData();
+        } else {
+          setTaskNotFound(false);
+        }
         for (const events of data.events) {
           const getTimeOfAPI = events.createdAt.split("T");
           const timeFormat = getTimeOfAPI[1].split(".");
@@ -180,6 +191,7 @@ const Dashboard = () => {
             createdAt: `${timeEvent[0]}:${timeEvent[1]}`,
             description: events.description,
           };
+
           addCard(apiData);
         }
       })
@@ -241,6 +253,8 @@ const Dashboard = () => {
         dataApi={dataApi}
         deleteSpecificEvent={deleteSpecificEvent}
         isLoading={isLoading}
+        taskNotFound={taskNotFound}
+        refreshData={refreshData}
       />
     </Background>
   );

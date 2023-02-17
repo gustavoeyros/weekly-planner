@@ -44,6 +44,8 @@ interface IPlanner {
   dataApi: IDataApi[];
   deleteSpecificEvent: (token: string, id: string) => void;
   isLoading: boolean;
+  taskNotFound: boolean;
+  refreshData: () => void;
 }
 
 const Planner = ({
@@ -56,6 +58,8 @@ const Planner = ({
   dataApi,
   deleteSpecificEvent,
   isLoading,
+  taskNotFound,
+  refreshData,
 }: IPlanner) => {
   const [clickEffect, setClickEffect] = useState(1);
 
@@ -63,6 +67,7 @@ const Planner = ({
 
   useEffect(() => {
     dayHandler(dayOfWeek, tokenStorage.token);
+    refreshData();
   }, []);
 
   return (
@@ -144,6 +149,8 @@ const Planner = ({
         <TimeStartContainer>
           <Time>Time</Time>
         </TimeStartContainer>
+
+        {taskNotFound ? <p>Not found</p> : ""}
 
         {isLoading ? (
           <p>Loading...</p>
