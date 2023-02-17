@@ -12,17 +12,17 @@ import {
 } from "./styled";
 
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/user-context";
 
 const LoginForm = () => {
   interface actionsContext {
-    onLogin: () => void;
     onSignIn: (data: {}) => void;
     responseOk: boolean;
     isLoading: boolean;
     hasError: boolean;
+    visualLoadingHandler: () => void;
   }
 
   const userCtx = useContext(UserContext) as actionsContext;
@@ -52,18 +52,12 @@ const LoginForm = () => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(userCtx.isLoading);
     const userInfos = {
       email: userRef.current?.value,
       password: passwordRef.current?.value,
     };
+    userCtx.visualLoadingHandler();
     userCtx.onSignIn(userInfos);
-    /*    if (userCtx.isLoading === false) {
-      if (userCtx.responseOk) {
-        setHasError(false);
-      }
-      if (!userCtx.responseOk) setHasError(true);
-    } */
   };
   const registerPageHandler = () => {
     navigate("/register");

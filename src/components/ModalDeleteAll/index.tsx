@@ -4,17 +4,11 @@ import IconDeleteButton from "../../assets/IconDeleteButton.svg";
 
 interface IModal {
   modalView: () => void;
-  deleteAllCards: () => void;
   dayRemove: string;
   deleteAllEvents: (token: string, day: string) => void;
 }
 
-const Modal = ({
-  modalView,
-  deleteAllCards,
-  dayRemove,
-  deleteAllEvents,
-}: IModal) => {
+const Modal = ({ modalView, dayRemove, deleteAllEvents }: IModal) => {
   const deleteAndRemove = () => {
     const tokenStorage = JSON.parse(localStorage.getItem("logged") || "");
     modalView();

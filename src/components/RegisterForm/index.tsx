@@ -28,9 +28,12 @@ const RegisterForm = () => {
   type UserContext = {
     setUserInput: (value: User) => void;
     onSignUp: (data: {}) => void;
+    visualLoadingHandler: () => void;
   };
 
-  const { onSignUp } = useContext(UserContext) as UserContext;
+  const { onSignUp, visualLoadingHandler } = useContext(
+    UserContext
+  ) as UserContext;
 
   const [enteredFirstName, setEnteredFirstName] = useState<null | boolean>(
     null
@@ -207,7 +210,7 @@ const RegisterForm = () => {
         password: passwordRef.current?.value,
         confirmPassword: confirmPasswordRef.current?.value,
       };
-
+      visualLoadingHandler();
       onSignUp(inputData);
     }
   };

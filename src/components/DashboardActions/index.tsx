@@ -4,7 +4,6 @@ import {
   InputActions,
   InputTask,
   DaySelect,
-  TimeInput,
   ButtonsAction,
   ButtonActionStyle,
   ActionsContainer,
@@ -25,16 +24,10 @@ interface ICreateEvent {
 interface IDashboard {
   modalVisibility: () => void;
   createEvent: (data: ICreateEvent, token: string) => void;
-  getEvents: (token: string) => void;
   dayHandler: (day: string, token: string) => void;
 }
 
-const DashboardActions = ({
-  modalVisibility,
-  createEvent,
-  getEvents,
-  dayHandler,
-}: IDashboard) => {
+const DashboardActions = ({ modalVisibility, createEvent }: IDashboard) => {
   const taskRef = useRef<HTMLInputElement>(null);
   const dayRef = useRef<HTMLSelectElement>(null);
 

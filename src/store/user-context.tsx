@@ -7,15 +7,6 @@ export const UserContext = React.createContext({});
 
 export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
-  const [userInput, setUserInput] = useState({
-    fullName: "",
-    birth: "",
-    country: "",
-    city: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
   //check loggedIn
 
@@ -31,7 +22,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   );
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const [visualLoading, setVisualLoading] = useState<boolean | null>(null);
   const [hasError, setHasError] = useState<boolean | null>(null);
 
   const logoutHandler = () => {
@@ -39,9 +30,8 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setIsLogged(false);
   };
 
-  const loginHandler = (token: string) => {
-    localStorage.setItem("logged", token);
-    setIsLogged(true);
+  const visualLoadingHandler = () => {
+    setVisualLoading(true);
   };
 
   const signUpHandler = (data: {}) => {
@@ -51,6 +41,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((res) => {
+        setVisualLoading(false);
         if (res.ok) {
           setRegisterResponse(res.ok);
           setTimeout(() => {
@@ -83,12 +74,14 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const signInHandler = (data: {}) => {
     setIsLoading(true);
+
     fetch(`${import.meta.env.VITE_APIBaseURL}/users/sign-in`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
       .then((res) => {
+        setVisualLoading(false);
         setIsLoading(false);
         if (res.ok) {
           setIsResponseOk(res.ok);
@@ -140,12 +133,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        userInput,
-        setUserInput,
         isLogged,
         setIsLogged,
         onLogout: logoutHandler,
-        onLogin: loginHandler,
         onSignUp: signUpHandler,
         onSignIn: signInHandler,
         responseOk: responseOk,
@@ -154,6 +144,8 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         errorMessage,
         isLoading,
         hasError,
+        visualLoading,
+        visualLoadingHandler,
       }}
     >
       {children}

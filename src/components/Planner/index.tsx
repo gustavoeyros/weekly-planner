@@ -37,10 +37,7 @@ interface IDataApi {
 }
 
 interface IPlanner {
-  filteredTask: IDataApi[];
-  deleteCard: (id: number, indexMeet: number) => void;
   dayHandler: (token: string, day: string) => void;
-  cardTask: IUser[];
   dayOfWeek: string;
   setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
   dataApi: IDataApi[];
@@ -51,10 +48,7 @@ interface IPlanner {
 }
 
 const Planner = ({
-  filteredTask,
-  deleteCard,
   dayHandler,
-  cardTask,
   dayOfWeek,
   setDayOfWeek,
   dataApi,

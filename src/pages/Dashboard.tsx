@@ -35,8 +35,6 @@ const Dashboard = () => {
     conflicts: IAPIObject[];
   }
 
-  const [task, setTask] = useState<IUser[]>([]);
-  const [filteredTask, setFilteredTask] = useState<IPrevEvent[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState<IPrevEvent[]>([]);
   const [isLoading, setIsLoading] = useState<boolean | null>(true);
@@ -99,24 +97,6 @@ const Dashboard = () => {
       .then((data) => {
         console.log(data);
       });
-  };
-
-  const getEvents = (token: string) => {
-    fetch(`${import.meta.env.VITE_APIBaseURL}/events`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data.events);
-        addCard(data.events);
-      })
-      .catch((error) => console.log(error));
   };
 
   const deleteSpecificEvent = (token: string, id: string) => {
@@ -198,28 +178,6 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   };
 
-  //delete specific card
-  const deleteCard = (id: number, indexMeet: number) => {
-    const prevTask = [...task];
-    const searchConflictIndex = prevTask.findIndex((meet) => {
-      return meet.id == id;
-    });
-
-    if (prevTask[searchConflictIndex].conflicts.length === 1) {
-      prevTask.splice(searchConflictIndex, 1);
-    } else {
-      prevTask[searchConflictIndex].conflicts.splice(indexMeet, 1);
-    }
-    setTask(prevTask);
-  };
-
-  //delete all cards
-  const deleteAllCards = () => {
-    console.log("em manutenção");
-    /* const newRemove = task.filter((item: IDay) => item.dayOfWeek !== dayOfWeek);
-    setTask(newRemove); */
-  };
-
   const modalVisibility = () => {
     setShowModal(!showModal);
   };
@@ -229,7 +187,6 @@ const Dashboard = () => {
       {showModal ? (
         <Modal
           modalView={modalVisibility}
-          deleteAllCards={deleteAllCards}
           dayRemove={dayOfWeek}
           deleteAllEvents={deleteAllEvents}
         ></Modal>
@@ -240,14 +197,10 @@ const Dashboard = () => {
       <DashboardActions
         modalVisibility={modalVisibility}
         createEvent={createEvent}
-        getEvents={getEvents}
         dayHandler={dayHandler}
       />
       <Planner
-        cardTask={task}
-        deleteCard={deleteCard}
         dayHandler={dayHandler}
-        filteredTask={filteredTask}
         dayOfWeek={dayOfWeek}
         setDayOfWeek={setDayOfWeek}
         dataApi={dataApi}
