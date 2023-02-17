@@ -207,3 +207,12 @@ export const IssuesContainer = styled.div`
   `
       : ""}
 `;
+
+export const NotFound = styled.div`
+  display: flex;
+  justify-content: center;
+
+  & p {
+    font-size: 30px;
+  }
+`;

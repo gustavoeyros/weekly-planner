@@ -39,7 +39,7 @@ const Dashboard = () => {
   const [filteredTask, setFilteredTask] = useState<IPrevEvent[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState<IPrevEvent[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean | null>(true);
   const [dayOfWeek, setDayOfWeek] = useState("monday");
   const [taskNotFound, setTaskNotFound] = useState(false);
 
@@ -161,7 +161,7 @@ const Dashboard = () => {
   }
 
   const dayHandler = (day: string, token: string) => {
-    console.log(day);
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_APIBaseURL}/events?dayOfWeek=${day}`, {
       method: "GET",
       headers: {

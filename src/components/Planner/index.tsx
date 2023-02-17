@@ -1,3 +1,4 @@
+import SkeletonLoading from "../SkeletonLoading";
 import { useState } from "react";
 import { useEffect } from "react";
 import {
@@ -13,6 +14,7 @@ import {
   DeleteContainer,
   TimeStartContainer,
   IssuesContainer,
+  NotFound,
 } from "./styled";
 
 interface IUser {
@@ -43,7 +45,7 @@ interface IPlanner {
   setDayOfWeek: React.Dispatch<React.SetStateAction<string>>;
   dataApi: IDataApi[];
   deleteSpecificEvent: (token: string, id: string) => void;
-  isLoading: boolean;
+  isLoading: boolean | null;
   taskNotFound: boolean;
   refreshData: () => void;
 }
@@ -150,10 +152,16 @@ const Planner = ({
           <Time>Time</Time>
         </TimeStartContainer>
 
-        {taskNotFound ? <p>Not found</p> : ""}
+        {taskNotFound && !isLoading ? (
+          <NotFound>
+            <p>You have no tasks that day.</p>
+          </NotFound>
+        ) : (
+          ""
+        )}
 
         {isLoading ? (
-          <p>Loading...</p>
+          <SkeletonLoading />
         ) : (
           dataApi.map((item) => {
             const tokenStorage = JSON.parse(
