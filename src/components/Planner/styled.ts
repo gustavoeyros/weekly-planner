@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
 interface daysProps {
   clickEffect?: number;
   day?: string;
-  checkConflictsStyle?: string;
+  checkConflictsStyle?: any;
 }
 
 export const DaysWeek = styled.div`
@@ -69,7 +69,7 @@ export const Time = styled.div`
       : `var(--${props.day}-color)`};
   font-weight: 800;
 
-  color: ${(props) =>
+  color: ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict" ? `white` : `black`};
 
   font-size: 17px;
@@ -79,7 +79,7 @@ export const Time = styled.div`
   border-radius: 10px;
   padding: 10px;
 
-  ${(props) =>
+  ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict"
       ? `&:after {
     content: "";
@@ -150,7 +150,6 @@ export const Issues = styled.div`
 
 export const IssuesColor = styled.div`
   display: flex;
-  // background: var(--${({ day }) => day}-color);
   background: ${(props: daysProps) =>
     props.checkConflictsStyle === "conflict"
       ? `#000000b2`

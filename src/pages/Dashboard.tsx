@@ -17,7 +17,7 @@ const Dashboard = () => {
   }
 
   type IAPIObject = {
-    id: string;
+    _id: string;
     description: string;
   };
 
@@ -25,7 +25,6 @@ const Dashboard = () => {
     dayOfWeek: string;
     createdAt: string;
     _id: string;
-    conflicts: IAPIObject[];
     description: string;
   }
 
@@ -37,7 +36,7 @@ const Dashboard = () => {
   }
 
   const [task, setTask] = useState<IUser[]>([]);
-  const [filteredTask, setFilteredTask] = useState<IDataApi[]>([]);
+  const [filteredTask, setFilteredTask] = useState<IPrevEvent[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [dataApi, setDataApi] = useState<IPrevEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +54,7 @@ const Dashboard = () => {
 
     if (conflict >= 0) {
       prevEvent[conflict].conflicts.push({
-        id: item._id,
+        _id: item._id,
         description: item.description,
       });
     } else {
@@ -65,7 +64,7 @@ const Dashboard = () => {
         createdAt: item.createdAt,
         conflicts: [
           {
-            id: item._id,
+            _id: item._id,
             description: item.description,
           },
         ],
@@ -166,13 +165,23 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
+
         return res.json();
       })
       .then((data) => {
-        addCard(data.events);
+        for (const events of data.events) {
+          const getTimeOfAPI = events.createdAt.split("T");
+          const timeFormat = getTimeOfAPI[1].split(".");
+          const timeEvent = timeFormat[0].split(":");
+          const apiData: IDataApi = {
+            _id: events._id,
+            dayOfWeek: events.dayOfWeek,
+            createdAt: `${timeEvent[0]}:${timeEvent[1]}`,
+            description: events.description,
+          };
+          addCard(apiData);
+        }
       })
       .catch((error) => console.log(error));
   };

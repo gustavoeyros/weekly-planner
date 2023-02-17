@@ -23,7 +23,7 @@ interface IUser {
   id: number;
 }
 type IAPIObject = {
-  id: string;
+  _id: string;
   description: string;
 };
 
@@ -149,23 +149,28 @@ const Planner = ({
           <p>Loading...</p>
         ) : (
           dataApi.map((item) => {
-            /*     const getTimeOfAPI = item.createdAt.split("T");
-            const timeFormat = getTimeOfAPI[1].split(".");
-            const timeEvent = timeFormat[0].split(":");
             const tokenStorage = JSON.parse(
               localStorage.getItem("logged") || ""
-            ); */
+            );
+
+            const checkConflictsStyle =
+              item.conflicts.length > 1 ? "conflict" : "";
 
             return (
-              <TaskContainer>
-                <Time day={item.dayOfWeek}>
-                  {/*  {timeEvent[0]}h{timeEvent[1]}m */}
-                  12h
+              <TaskContainer key={item._id}>
+                <Time
+                  day={item.dayOfWeek}
+                  checkConflictsStyle={checkConflictsStyle}
+                >
+                  {item.createdAt}
                 </Time>
-                <IssuesContainer>
+                <IssuesContainer checkConflictsStyle={checkConflictsStyle}>
                   {item.conflicts.map((data) => (
-                    <Issues key={data.id}>
-                      <IssuesColor day={item.dayOfWeek} />
+                    <Issues key={data._id}>
+                      <IssuesColor
+                        day={item.dayOfWeek}
+                        checkConflictsStyle={checkConflictsStyle}
+                      />
                       <span>{data.description}</span>
                       <DeleteContainer>
                         <DeleteButton
