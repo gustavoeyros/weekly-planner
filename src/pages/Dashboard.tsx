@@ -8,14 +8,6 @@ import Modal from "../components/ModalDeleteAll";
 const Dashboard = () => {
   //add cards
 
-  interface IUser {
-    name: string;
-    day: string;
-    time: string;
-    conflicts: string[];
-    id: number;
-  }
-
   type IAPIObject = {
     _id: string;
     description: string;
@@ -91,11 +83,11 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        dayHandler(dayOfWeek, token);
         return res.json();
       })
       .then((data) => {
         console.log(data);
+        dayHandler(dayOfWeek, token);
       });
   };
 
@@ -108,10 +100,10 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        dayHandler(dayOfWeek, token);
         return res;
       })
       .then((data) => {
+        dayHandler(dayOfWeek, token);
         console.log(data);
       })
       .catch((error) => console.log(error));
@@ -126,10 +118,10 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
-        dayHandler(dayOfWeek, token);
         return res.json();
       })
       .then((data) => {
+        dayHandler(dayOfWeek, token);
         console.log(data);
       })
       .catch((error) => console.log(error));
@@ -171,7 +163,6 @@ const Dashboard = () => {
             createdAt: `${timeEvent[0]}:${timeEvent[1]}`,
             description: events.description,
           };
-
           addCard(apiData);
         }
       })
