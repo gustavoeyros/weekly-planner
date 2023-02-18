@@ -74,6 +74,7 @@ const Dashboard = () => {
   }
 
   const createEvent = (data: ICreateEvent, token: string) => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_APIBaseURL}/events`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -83,6 +84,7 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
+        setIsLoading(false);
         return res.json();
       })
       .then((data) => {
@@ -92,6 +94,7 @@ const Dashboard = () => {
   };
 
   const deleteSpecificEvent = (token: string, id: string) => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_APIBaseURL}/events/${id}`, {
       method: "DELETE",
       headers: {
@@ -100,6 +103,7 @@ const Dashboard = () => {
       },
     })
       .then((res) => {
+        setIsLoading(false);
         return res;
       })
       .then((data) => {
@@ -110,6 +114,7 @@ const Dashboard = () => {
   };
 
   const deleteAllEvents = (token: string, day: string) => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_APIBaseURL}/events?dayOfWeek=${day}`, {
       method: "DELETE",
       headers: {
@@ -121,16 +126,12 @@ const Dashboard = () => {
         return res.json();
       })
       .then((data) => {
+        setIsLoading(false);
         dayHandler(dayOfWeek, token);
         console.log(data);
       })
       .catch((error) => console.log(error));
   };
-
-  interface IDay {
-    dayOfWeek: string;
-    time: string;
-  }
 
   const dayHandler = (day: string, token: string) => {
     setIsLoading(true);

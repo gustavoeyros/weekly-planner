@@ -162,8 +162,16 @@ const Planner = ({
               localStorage.getItem("logged") || ""
             );
 
+            let hours = new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
             const checkConflictsStyle =
-              item.conflicts.length > 1 ? "conflict" : "";
+              item.conflicts.length > 1
+                ? "conflict"
+                : "" || item.createdAt < hours
+                ? "conflict"
+                : "";
 
             return (
               <TaskContainer key={item._id}>
