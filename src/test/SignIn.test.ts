@@ -1,53 +1,27 @@
-import { signInHandler } from "./handlers";
+import { it, expect } from "vitest";
+import { signInHandler } from "./SignIn";
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ status: 200 }),
-  })
-) as jest.Mock;
-
-const validUser = {
-  email: "validEmail@hotmail.com",
-  password: "validPassword",
+const existingUser = {
+  email: "testezinDoEmail@hotmail.com",
+  password: "12345678910",
 };
 
-beforeEach(() => {
-  jest.fn().mockClear();
-});
+const fakeUser = {
+  email: `${Math.random().toString(10)}@hotmail.com`,
+  password: "1234567",
+};
 
 it("should return 200 if user exist", async () => {
-  const result = await signInHandler(validUser);
-  expect(result).toEqual(200);
-  expect(fetch).toHaveBeenCalledWith(
-    "https://latam-challenge-2.deta.dev/api/v1",
-    {
-      method: "POST",
-      body: JSON.stringify(validUser),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    }
-  );
+  const response = await signInHandler(existingUser);
+  expect(response).toBe(200);
 });
 
-it("should return 400 if user don't exist", async () => {
-  const errorMockedFn = jest
-    .fn()
-    .mockImplementationOnce(() => Promise.reject("400"));
+it("should return 400 if user don't exist ", async () => {
+  const response = await signInHandler(fakeUser);
+  expect(response).toBe(400);
+});
 
-  try {
-    const result = await signInHandler({
-      email: "fakeEmail@hotmail.com",
-      password: "1234567",
-    });
-    expect(result).toEqual(400);
-    expect(fetch).toHaveBeenCalledWith(
-      "https://latam-challenge-2.deta.dev/api/v1",
-      {
-        method: "POST",
-        body: JSON.stringify(validUser),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      }
-    );
-  } catch (e) {
-    expect(errorMockedFn()).rejects.toEqual("400");
-  }
+it("should return 400 if send invalid input", async () => {
+  const response = await signInHandler({});
+  expect(response).toBe(400);
 });
