@@ -2,7 +2,7 @@ import { signUpHandler } from "./handlers";
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
-    json: () => Promise.resolve({ status: 200 }),
+    json: () => Promise.resolve({ status: 201 }),
   })
 ) as jest.Mock;
 
@@ -21,11 +21,11 @@ beforeEach(() => {
   jest.fn().mockClear();
 });
 
-it("should return 200 if user is valid", async () => {
+it("should return 201 if user is created", async () => {
   const result = await signUpHandler(validUser);
-  expect(result).toEqual(200);
+  expect(result).toEqual(201);
   expect(fetch).toHaveBeenCalledWith(
-    "https://latam-challenge-2.deta.dev/api/v1/users/sign-up",
+    "https://latam-challenge-2.deta.dev/api/v1",
     {
       method: "POST",
       body: JSON.stringify(validUser),
@@ -37,12 +37,12 @@ it("should return 200 if user is valid", async () => {
 it("should return bad request if not valid user", async () => {
   const errorMockedFn = jest
     .fn()
-    .mockImplementationOnce(() => Promise.reject(null));
+    .mockImplementationOnce(() => Promise.reject("400"));
 
   try {
     const result = await signUpHandler({});
     expect(result).not.toBeDefined();
   } catch (err) {
-    expect(errorMockedFn()).rejects.toEqual(null);
+    expect(errorMockedFn()).rejects.toEqual("400");
   }
 });
