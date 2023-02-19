@@ -10,7 +10,7 @@ const token = process.env.VITE_ValidToken;
 
 it("should return 200 if event created sucessfully", async () => {
   const response = await createEvent(validEvent, token);
-  expect(response).toBe(200);
+  expect(response).toBe(201);
 });
 
 it("should return 401 if user not auth", async () => {

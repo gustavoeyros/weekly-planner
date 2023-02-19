@@ -18,6 +18,12 @@ Para rodar a aplicação em seu computador, utilize o comando:
 npm run dev
 ```
 
+Para rodar os testes unitários, utilize o comando:
+
+```
+npm test
+```
+
 # Navegando pela aplicação
 
 ## Tela de cadastro
