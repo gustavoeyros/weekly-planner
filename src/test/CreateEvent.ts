@@ -1,4 +1,6 @@
-export const createEvent = async (data: {}, token: string) => {
+import fetch from "node-fetch";
+
+export const createEvent = async (data: {}, token: string | undefined) => {
   const response = await fetch(`${process.env.VITE_APIBaseURL}/events`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -7,6 +9,5 @@ export const createEvent = async (data: {}, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const fetchResponse = await response.json();
-  return fetchResponse.status;
+  return response.status;
 };
