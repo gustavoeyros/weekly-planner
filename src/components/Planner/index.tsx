@@ -168,9 +168,7 @@ const Planner = ({
             });
             const checkConflictsStyle =
               item.conflicts.length > 1
-                ? "conflict"
-                : "" || item.createdAt < hours
-                ? "conflict"
+                ? "conflict" || item.createdAt < hours
                 : "";
 
             return (

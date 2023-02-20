@@ -148,6 +148,7 @@ const Dashboard = () => {
         return res.json();
       })
       .then((data) => {
+        console.log(data);
         if (data.events.length === 0) {
           setTaskNotFound(true);
           refreshData();
