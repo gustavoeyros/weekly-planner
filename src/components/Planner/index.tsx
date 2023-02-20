@@ -167,8 +167,8 @@ const Planner = ({
               minute: "2-digit",
             });
             const checkConflictsStyle =
-              item.conflicts.length > 1
-                ? "conflict" || item.createdAt < hours
+              item.conflicts.length > 1 || item.createdAt < hours
+                ? "conflict"
                 : "";
 
             return (
