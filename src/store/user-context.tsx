@@ -50,8 +50,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({ children }) => {
         } else {
           setRegisterResponse(res.ok);
         }
-        console.log("res ok do registro:" + res.ok);
-        console.log("estado do registro: " + registerResponse);
         return res.json();
       })
       .then((data) => {
