@@ -185,34 +185,23 @@ const RegisterForm = () => {
 
     //submit
 
-    if (
-      enteredFirstName &&
-      enteredLastName &&
-      enteredBirth &&
-      enteredCountry &&
-      enteredCity &&
-      enteredEmail &&
-      enteredPassword &&
-      enteredConfirmPassword
-    ) {
-      const birthInput = birthRef.current?.value.split("/");
-      const birthDateFormat = `${birthInput![2]}-${birthInput![1]}-${
-        birthInput![0]
-      }`;
+    const birthInput = birthRef.current?.value.split("/");
+    const birthDateFormat = `${birthInput![2]}-${birthInput![1]}-${
+      birthInput![0]
+    }`;
 
-      const inputData = {
-        firstName: firstNameRef.current?.value,
-        lastName: lastNameRef.current?.value,
-        birthDate: birthDateFormat,
-        country: countryRef.current?.value,
-        city: cityRef.current?.value,
-        email: emailRef.current?.value,
-        password: passwordRef.current?.value,
-        confirmPassword: confirmPasswordRef.current?.value,
-      };
-      visualLoadingHandler();
-      onSignUp(inputData);
-    }
+    const inputData = {
+      firstName: firstNameRef.current?.value,
+      lastName: lastNameRef.current?.value,
+      birthDate: birthDateFormat,
+      country: countryRef.current?.value,
+      city: cityRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+      confirmPassword: confirmPasswordRef.current?.value,
+    };
+    visualLoadingHandler();
+    onSignUp(inputData);
   };
   const loginPageHandler = () => {
     navigate("/login");

@@ -8,7 +8,7 @@ const validEvent = {
 
 const token = process.env.VITE_ValidToken;
 
-it("should return 200 if event created sucessfully", async () => {
+it("should return 201 if event created sucessfully", async () => {
   const response = await createEvent(validEvent, token);
   expect(response).toBe(201);
 });
